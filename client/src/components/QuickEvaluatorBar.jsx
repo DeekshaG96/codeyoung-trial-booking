@@ -153,7 +153,7 @@ export default function QuickEvaluatorBar({
               className="btn-primary"
               style={{ justifyContent: 'flex-start', padding: '8px 12px', fontSize: '12px' }}
               onClick={() => {
-                onEnterClassroom('CY-TR-EVAL-DEMO');
+                onEnterClassroom('KV-TR-EVAL-DEMO');
                 setIsOpen(false);
               }}
             >

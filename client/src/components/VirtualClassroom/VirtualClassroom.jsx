@@ -91,10 +91,10 @@ explore_alien_planet()
 
           <div>
             <h3 style={{ fontSize: '16px', fontWeight: 800, margin: 0 }}>
-              Codeyoung 1:1 Live Classroom
+              Kodaverse 1:1 Live Classroom
             </h3>
             <span style={{ fontSize: '11.5px', color: '#94a3b8' }}>
-              Session Ref: <strong style={{ color: '#818cf8' }}>{bookingId || 'CY-TR-LIVE-DEMO'}</strong>
+              Session Ref: <strong style={{ color: '#818cf8' }}>{bookingId || 'KV-TR-LIVE-DEMO'}</strong>
             </span>
           </div>
         </div>
@@ -375,13 +375,13 @@ explore_alien_planet()
 
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.15)', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: 700, marginBottom: '8px' }}>
                 <Award size={16} color="#fbbf24" />
-                <span>CODEYOUNG × TALENTISE GLOBAL</span>
+                <span>KODAVERSE ACADEMY</span>
               </div>
               <h2 style={{ fontSize: '24px', fontWeight: 800, margin: '4px 0', letterSpacing: '0.02em', color: '#fbbf24' }}>
                 Certificate of Achievement
               </h2>
               <p style={{ fontSize: '13px', color: '#c7d2fe', margin: 0 }}>
-                1:1 Live Coding Trial Class • Official Verification
+                1:1 Live Coding & STEM Mentorship • Official Verification
               </p>
             </div>
 
@@ -396,7 +396,7 @@ explore_alien_planet()
               </div>
 
               <p style={{ fontSize: '14px', color: '#44403c', lineHeight: 1.6, maxWidth: '500px', margin: '0 auto 24px auto' }}>
-                For outstanding curiosity, computational logic, and successfully building their first interactive computer program in the <strong>Codeyoung 1:1 Live Trial Class</strong>.
+                For outstanding curiosity, computational logic, and successfully building their first interactive computer program in the <strong>Kodaverse 1:1 Live Trial Session</strong>.
               </p>
 
               {/* Signatures & Badges */}

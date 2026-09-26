@@ -237,12 +237,12 @@ export default function EmailModal({ onEnterClassroom }) {
                 <div style={{ maxWidth: '440px', margin: '0 auto', background: '#ece5dd', padding: '20px', borderRadius: '16px', border: '1px solid #d1d7db', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
                   {/* WhatsApp Header */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingBottom: '12px', borderBottom: '1px solid #dadada', marginBottom: '16px' }}>
-                    <div style={{ width: 38, height: 38, borderRadius: '50%', background: '#25d366', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800 }}>
-                      CY
+                    <div style={{ width: 38, height: 38, borderRadius: '50%', background: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800 }}>
+                      KV
                     </div>
                     <div>
                       <div style={{ fontSize: '14px', fontWeight: 800, color: '#111b21', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <span>Codeyoung Official</span>
+                        <span>Kodaverse Official</span>
                         <CheckCircle2 size={14} color="#00a884" fill="#00a884" />
                       </div>
                       <div style={{ fontSize: '11px', color: '#667781' }}>Verified Business Account</div>
@@ -252,11 +252,11 @@ export default function EmailModal({ onEnterClassroom }) {
                   {/* Chat Bubble */}
                   <div style={{ background: '#ffffff', borderRadius: '8px', padding: '12px 14px', fontSize: '13px', lineHeight: 1.5, color: '#111b21', boxShadow: '0 1px 0.5px rgba(11,20,26,.13)', position: 'relative' }}>
                     <p style={{ margin: '0 0 8px 0' }}>
-                      👋 Hi <strong>{selectedEmail.recipientName}</strong>! Your Codeyoung 1:1 Live Coding Trial Class is confirmed!
+                      👋 Hi <strong>{selectedEmail.recipientName}</strong>! Your Kodaverse 1:1 Live Coding Trial Session is confirmed!
                     </p>
                     <p style={{ margin: '0 0 8px 0' }}>
-                      🗓️ <strong>Class Time:</strong> {selectedEmail.localDateTime} ({selectedEmail.timezone})<br />
-                      👨‍🏫 <strong>1:1 Senior Mentor Assigned:</strong> Active<br />
+                      🗓️ <strong>Session Time:</strong> {selectedEmail.localDateTime} ({selectedEmail.timezone})<br />
+                      👨‍🏫 <strong>1:1 Expert Mentor Assigned:</strong> Active<br />
                       🔗 <strong>Live Classroom Link:</strong><br />
                       <a href={selectedEmail.meetingLink} target="_blank" rel="noreferrer" style={{ color: '#00a884', fontWeight: 700, wordBreak: 'break-all' }}>
                         {selectedEmail.meetingLink}

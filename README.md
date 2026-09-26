@@ -1,7 +1,7 @@
 <div align="center">
 
-# 🚀 Codeyoung Orbit™
-### Enterprise 1:1 Global Trial Scheduling & Virtual Classroom Engine
+# 🌌 Kodaverse™
+### The Global 1:1 Coding & STEM Mentorship Platform
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel%20Production-10b981?style=for-the-badge&logo=vercel)](https://codeyoung-trial-booking-lime.vercel.app/)
 [![Vitest Passing](https://img.shields.io/badge/Vitest-23%2F23%20Passing-success?style=for-the-badge&logo=vitest)](https://github.com/DeekshaG96/codeyoung-trial-booking)
@@ -12,7 +12,7 @@
 
 **[👉 Launch Live Production App: codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/)**
 
-*Submitted for Codeyoung Campus Recruitment Drive (2027 Batch) via Talentise Global.*
+*Next-Generation Cross-Timezone 1:1 Scheduling & Virtual Live Classroom Engine.*
 
 </div>
 
@@ -22,9 +22,10 @@
 
 | Detail | Information |
 |---|---|
+| **Platform Name** | **Kodaverse™** (The Global 1:1 Coding & STEM Mentorship Platform) |
 | **Candidate Name** | **Deeksha G** |
 | **Institute** | **Srinivas Institute of Technology, Mangaluru (SITMNG)** |
-| **Recruitment Partner** | **Talentise Global** (`campus.ka@talentiseglobal.com`) |
+| **Recruitment Drive** | **Codeyoung (2027 Batch) via Talentise Global** (`campus.ka@talentiseglobal.com`) |
 | **Email Subject Line** | `Codeyoung Assignment Task - Deeksha G - SIT Mangaluru (SITMNG)` |
 | **Live Production URL** | **[https://codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/)** |
 | **GitHub Repository** | **[https://github.com/DeekshaG96/codeyoung-trial-booking](https://github.com/DeekshaG96/codeyoung-trial-booking)** |
@@ -33,19 +34,19 @@
 
 ## 🌟 The Business Problem & System Constraints
 
-At **Codeyoung**, parents book a 1:1 "trial class" to evaluate the platform, meet educators, and explore personalized coding curricula before subscribing.
+At **Kodaverse**, parents book a 1:1 "trial class" to evaluate the platform, meet educators, and explore personalized coding curricula before subscribing.
 
 ### Core Mathematical Constraints:
 1. **10 Mentors Available:** Located in India (**`Asia/Kolkata` - IST**, UTC+05:30).
 2. **20 Parents Booking Per Day:** Primarily located across North America (**EDT/EST, CDT/CST, MDT/MST, PDT/PST**) and the United Kingdom (**BST/GMT**).
-3. **Strict Mentor Quota Limit:** Mentors take **at most 2 demo classes per day** to guarantee maximum pedagogical attention and prevent burnout.
+3. **Strict Mentor Quota Limit:** Mentors take **at most 2 demo classes per day** to guarantee maximum pedagogical attention and prevent educator burnout.
 4. **System Capacity Equilibrium:**
    $$\text{System Daily Capacity} = 10 \text{ Mentors} \times 2 \text{ Demos/Day} = 20 \text{ Demos Maximum / Day}$$
 5. **The IANA Daylight Saving Time (DST) Challenge:** 
    - North America and the UK observe seasonal Daylight Saving Time shifts (e.g. US Energy Policy Act of 2005; UK Summer Time Act 1972).
    - India does **not** observe DST (always fixed at UTC+05:30).
-   - Hardcoded offsets (e.g. `IST = EST + 10.5h`) cause booking collisions and missed appointments. Codeyoung Orbit uses compiled IANA tz databases to compute canonical ISO-8601 UTC timestamps with active DST detection.
-6. **Working Dummy Live Class Link:** Each confirmed booking generates a dummy link (`https://meet.codeyoung.com/demo/CY-TR-xxxxxx`) connecting both parties to an interactive browser classroom with Python and Scratch sandboxes.
+   - Hardcoded offsets (e.g. `IST = EST + 10.5h`) cause booking collisions and missed appointments. Kodaverse uses compiled IANA tz databases to compute canonical ISO-8601 UTC timestamps with active DST detection.
+6. **Working Dummy Live Class Link:** Each confirmed booking generates a unique link (`https://meet.codeyoung.com/demo/CY-TR-xxxxxx` or `meet.kodaverse.io`) connecting both parties to an interactive browser classroom with Python and Scratch sandboxes.
 7. **Empathetic Error Handling:** When all 10 mentors are fully booked or slots collide, the engine provides the 3 nearest available slots and a priority waitlist.
 
 ---
@@ -81,7 +82,7 @@ flowchart TD
 
 ### 4. 🎓 Virtual Classroom & Official STEM Trial Certificate
 - Built-in live coding sandbox with Python execution terminal and visual Scratch block canvas.
-- **Trial Certificate Modal:** Generates an official Codeyoung × Talentise Global Certificate of Achievement with student name, verification ID, date, and 1-click **"Print / Save as PDF"** functionality.
+- **Trial Certificate Modal:** Generates an official Kodaverse Academy Certificate of Achievement with student name, verification ID, date, and 1-click **"Print / Save as PDF"** functionality.
 
 ### 5. ⚡ Evaluator Quick Demo Shortcuts Dock
 - Floating bottom-right action pill allowing evaluators to load pre-configured test scenarios (US Parent, UK Parent, 20-Parent Simulation, Mentor Dashboard, Classroom) with one click.
@@ -223,8 +224,8 @@ Live deployment: **[codeyoung-trial-booking-lime.vercel.app](https://codeyoung-t
 
 <div align="center">
 
-**Engineered with precision for Talentise Global × Codeyoung**  
+**Kodaverse™ — Engineered with precision**  
 *Candidate: Deeksha G (Srinivas Institute of Technology, Mangaluru - 2027 Batch)*  
-*Target: `campus.ka@talentiseglobal.com`*
+*Recruitment Partner: Talentise Global (`campus.ka@talentiseglobal.com`)*
 
 </div>

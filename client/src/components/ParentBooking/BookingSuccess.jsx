@@ -45,16 +45,16 @@ export default function BookingSuccess({
     if (!bookingData?.startUtc || !bookingData?.endUtc) return '#';
     const s = bookingData.startUtc.replace(/[-:]/g, '').split('.')[0] + 'Z';
     const e = bookingData.endUtc.replace(/[-:]/g, '').split('.')[0] + 'Z';
-    const title = encodeURIComponent(`Codeyoung 1:1 Live Trial Class - ${bookingData.childName} (${bookingData.subject})`);
-    const details = encodeURIComponent(`Join Codeyoung Live Classroom: ${bookingData.meetingLink}\nMentor: ${bookingData.mentorName || assignedMentor?.name}\nBooking Reference ID: ${bookingData.id}\nDual-Timezone Times:\n• Parent Local: ${bookingData.parentLocalTime}\n• Mentor IST: ${bookingData.mentorLocalTime}`);
-    const location = encodeURIComponent(bookingData.meetingLink || 'Codeyoung Virtual Live Classroom');
+    const title = encodeURIComponent(`Kodaverse 1:1 Live Trial Session - ${bookingData.childName} (${bookingData.subject})`);
+    const details = encodeURIComponent(`Join Kodaverse Live Classroom: ${bookingData.meetingLink}\nMentor: ${bookingData.mentorName || assignedMentor?.name}\nBooking Reference ID: ${bookingData.id}\nDual-Timezone Times:\n• Parent Local: ${bookingData.parentLocalTime}\n• Mentor IST: ${bookingData.mentorLocalTime}`);
+    const location = encodeURIComponent(bookingData.meetingLink || 'Kodaverse Virtual Live Classroom');
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${s}/${e}&details=${details}&location=${location}`;
   };
 
   const getOutlookCalendarUrl = () => {
     if (!bookingData?.startUtc || !bookingData?.endUtc) return '#';
-    const title = encodeURIComponent(`Codeyoung 1:1 Live Trial Class - ${bookingData.childName} (${bookingData.subject})`);
-    const details = encodeURIComponent(`Join Live Classroom: ${bookingData.meetingLink}\nBooking ID: ${bookingData.id}`);
+    const title = encodeURIComponent(`Kodaverse 1:1 Live Trial Session - ${bookingData.childName} (${bookingData.subject})`);
+    const details = encodeURIComponent(`Join Kodaverse Live Classroom: ${bookingData.meetingLink}\nBooking ID: ${bookingData.id}`);
     return `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&startdt=${bookingData.startUtc}&enddt=${bookingData.endUtc}&body=${details}&location=${encodeURIComponent(bookingData.meetingLink || '')}`;
   };
 
@@ -66,10 +66,10 @@ export default function BookingSuccess({
       </div>
 
       <h2 style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', color: 'var(--text-primary)' }}>
-        Trial Class Confirmed! 🎉
+        Trial Session Confirmed! 🎉
       </h2>
       <p style={{ fontSize: '15px', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 24px auto' }}>
-        We have assigned a senior Codeyoung mentor for <strong>{bookingData?.childName}</strong>'s 1:1 session in <strong>{bookingData?.subject}</strong>.
+        We have assigned a senior Kodaverse mentor for <strong>{bookingData?.childName}</strong>'s 1:1 live session in <strong>{bookingData?.subject}</strong>.
       </p>
 
       {/* Booking Reference Pill */}

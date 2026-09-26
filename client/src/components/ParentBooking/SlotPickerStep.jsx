@@ -343,7 +343,7 @@ export default function SlotPickerStep({
             All 10 Mentors are Fully Booked for {selectedDate}
           </h3>
           <p style={{ fontSize: '14px', color: '#7f1d1d', maxWidth: '540px', margin: '0 auto 20px auto', lineHeight: 1.5 }}>
-            To guarantee high-quality 1:1 attention, each Codeyoung mentor takes at most <strong>2 trial classes per day</strong>. All mentor trial quotas for this date have been reached.
+            To guarantee high-quality 1:1 attention, each Kodaverse mentor takes at most <strong>2 trial classes per day</strong>. All mentor trial quotas for this date have been reached.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <button

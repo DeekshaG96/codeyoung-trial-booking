@@ -82,7 +82,7 @@ export default function DstInspectorModal({ onClose, onSelectPreset }) {
               <span>IANA TIMEZONE & DST ARCHITECTURE</span>
             </div>
             <h2 style={{ fontSize: '20px', fontWeight: 800, margin: 0 }}>
-              Codeyoung Orbit™ Dynamic DST Synchronization Engine
+              Kodaverse™ Dynamic DST Synchronization Engine
             </h2>
             <p style={{ fontSize: '12.5px', color: '#c7d2fe', marginTop: '4px' }}>
               Mathematical proof of zero slot drift during US Energy Policy Act & UK Summer Time clock shifts.

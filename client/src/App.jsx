@@ -20,14 +20,14 @@ export default function App() {
   const handleResetData = async () => {
     try {
       await api.resetData();
-      setResetToast('System data reset to initial baseline state successfully.');
+      setResetToast('System baseline data reset successfully.');
       setTimeout(() => setResetToast(null), 3500);
     } catch (err) {
       alert('Reset failed: ' + err.message);
     }
   };
 
-  const handleEnterClassroom = (bookingId = 'CY-TR-LIVE-DEMO') => {
+  const handleEnterClassroom = (bookingId = 'KV-TR-LIVE-DEMO') => {
     setActiveBookingId(bookingId);
     setActiveTab('classroom');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -39,7 +39,7 @@ export default function App() {
   };
 
   return (
-    <div className="app-container" id="codeyoung-app-root">
+    <div className="app-container" id="kodaverse-app-root">
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}
@@ -58,35 +58,35 @@ export default function App() {
 
       {/* Hero Banner (Shown on booking portal) */}
       {activeTab === 'booking' && (
-        <section className="hero-banner" id="hero-banner-section">
+        <section className="hero-banner" id="hero-banner-section" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)' }}>
           <div className="hero-content">
             <div className="hero-text-col">
-              <div className="hero-badge-pill">
-                <Sparkles size={14} color="#fbbf24" />
-                <span>Codeyoung Orbit™ • Global 1:1 Live Coding Trial Platform</span>
+              <div className="hero-badge-pill" style={{ background: 'rgba(99, 102, 241, 0.2)', border: '1px solid rgba(165, 180, 252, 0.3)' }}>
+                <Sparkles size={14} color="#38bdf8" />
+                <span>Kodaverse™ • The Global 1:1 Coding & STEM Mentorship Platform</span>
               </div>
-              <h1 className="hero-title">
-                Inspire Your Child's Tech Future with 1:1 Live Coding Coaching
+              <h1 className="hero-title" style={{ letterSpacing: '-0.03em' }}>
+                Where Young Minds Launch Their Journey Into Tomorrow's Technology
               </h1>
               <p className="hero-subtitle">
-                Experience Codeyoung's award-winning curriculum. Pick a convenient time in your local time zone — our matching engine automatically pairs your child with a certified STEM mentor in India with zero timezone friction.
+                Join Kodaverse for an exclusive 1:1 live trial session. Pick your local time anywhere in the US, UK, or globally — our intelligent scheduling engine pairs your child with a certified STEM mentor in real time with 100% Daylight Saving synchronization.
               </p>
             </div>
 
-            <div className="hero-stats-box">
+            <div className="hero-stats-box" style={{ background: 'rgba(255, 255, 255, 0.08)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
               <div className="hero-stat-item">
                 <div className="hero-stat-val">10</div>
-                <div className="hero-stat-label">Dedicated Mentors</div>
+                <div className="hero-stat-label">Senior Mentors</div>
               </div>
               <div style={{ width: 1, background: 'rgba(255,255,255,0.2)' }} />
               <div className="hero-stat-item">
                 <div className="hero-stat-val">2 Max</div>
-                <div className="hero-stat-label">Demos/Day Cap</div>
+                <div className="hero-stat-label">Demos/Day Quota</div>
               </div>
               <div style={{ width: 1, background: 'rgba(255,255,255,0.2)' }} />
               <div className="hero-stat-item">
                 <div className="hero-stat-val">100%</div>
-                <div className="hero-stat-label">IANA DST Synced</div>
+                <div className="hero-stat-label">IANA DST Precision</div>
               </div>
             </div>
           </div>
@@ -148,16 +148,16 @@ export default function App() {
       <footer className="app-footer">
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
-            <strong>Codeyoung Orbit™ | 1:1 Live Coding Appointment Booking Platform</strong>
+            <strong>Kodaverse™ | The Global 1:1 Coding & STEM Mentorship Platform</strong>
             <div style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>
-              Full-Stack Engineering Task • Talentise Global Campus Recruitment
+              Next-Generation Cross-Timezone Scheduling & Live Virtual Classroom System
             </div>
           </div>
 
           <div style={{ textAlign: 'right', fontSize: '12.5px' }}>
             <div>Engineered by <strong>Deeksha G</strong> (SIT Mangaluru)</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '11.5px' }}>
-              React 19 • Node.js • Luxon IANA Timezones • Strict 2-Demo Limit Engine
+              React 19 • Node.js • Luxon IANA DST Engine • 10-Mentor Shift Balancer
             </div>
           </div>
         </div>

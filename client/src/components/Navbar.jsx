@@ -1,30 +1,29 @@
 import React from 'react';
-import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, ShieldCheck } from 'lucide-react';
+import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, Zap } from 'lucide-react';
 
 export default function Navbar({ 
   activeTab, 
   setActiveTab, 
   onResetData, 
-  onOpenDstInspector,
-  onOpenQuickDemo
+  onOpenDstInspector
 }) {
   return (
     <header className="header-nav" id="main-navigation-header">
       <div className="header-inner">
-        {/* Brand Identity */}
+        {/* Brand Identity: Kodaverse */}
         <div className="brand-block" onClick={() => setActiveTab('booking')} id="brand-home-btn" style={{ cursor: 'pointer' }}>
-          <div className="brand-logo-badge" style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)', boxShadow: '0 4px 10px rgba(79, 70, 229, 0.35)' }}>
-            CY
+          <div className="brand-logo-badge" style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%)', boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)' }}>
+            KV
           </div>
           <div>
             <div className="brand-text-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span>Codeyoung Orbit</span>
+              <span>Kodaverse</span>
               <span style={{ fontSize: '11px', verticalAlign: 'super', color: '#6366f1', fontWeight: 800 }}>™</span>
-              <span style={{ background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)', color: '#92400e', fontSize: '10px', fontWeight: 800, padding: '1px 7px', borderRadius: '12px', border: '1px solid #fcd34d' }}>
-                ENTERPRISE
+              <span style={{ background: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)', color: '#4338ca', fontSize: '10px', fontWeight: 800, padding: '2px 8px', borderRadius: '12px', border: '1px solid #c7d2fe' }}>
+                PRO
               </span>
             </div>
-            <div className="brand-text-subtitle">1:1 Global Trial Scheduling & Mentorship Platform</div>
+            <div className="brand-text-subtitle">The Global 1:1 Coding & STEM Mentorship Platform</div>
           </div>
         </div>
 
@@ -36,7 +35,7 @@ export default function Navbar({
             onClick={() => setActiveTab('booking')}
           >
             <Calendar size={16} />
-            <span>Book Trial Class</span>
+            <span>Book Trial Session</span>
           </button>
 
           <button

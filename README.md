@@ -182,6 +182,43 @@ Visit **`http://localhost:3000`** in Google Chrome or any modern web browser.
 
 ---
 
+## 🧪 Automated Testing Suite (Vitest)
+
+The project includes an automated test suite with **23 Vitest unit tests** covering mathematical DST transitions, timezone precision, load balancing, collision avoidance, and system capacity limits:
+
+```bash
+# Run the test suite from root
+npm test
+
+# Or directly in the server directory
+cd server && npm test
+```
+
+### Test Coverage Highlights:
+- **`src/tests/dst.test.js` (8 tests):**
+  - Mathematical proof that US "spring forward" (March 8, 2026) is a 23-hour day in UTC.
+  - Proof that US "fall back" (November 1, 2026) is a 25-hour day in UTC.
+  - Proof that UK "spring forward" & "fall back" days are 23h and 25h in UTC.
+  - Verifies India (`Asia/Kolkata`) has NO DST (always fixed 24h, UTC+05:30).
+  - Verifies that a fixed mentor instant in IST shifts clock hour in New York before vs after Nov 1, 2026 (EDT vs EST).
+  - Dynamic `isInDST` detection and accurate offset formatting.
+- **`src/tests/bookingService.test.js` (7 tests):**
+  - Validation of mandatory input fields and timestamps.
+  - Successful booking creation and dummy link generation.
+  - **Strict 2-demo daily cap** enforcement per mentor.
+  - **Load-balanced assignment:** prioritizes mentors with 0 demos over mentors with 1 demo.
+  - **Collision avoidance:** prevents overlapping bookings for the same mentor.
+  - Empathetic error state returning nearest slot recommendations and waitlist.
+- **`src/tests/capacityAndSimulation.test.js` (3 tests):**
+  - Automated 20-parent stress test proving all 20 bookings succeed across 10 mentors with `demosBooked <= 2`.
+  - Rejection of the 21st parent overflow.
+  - Midnight boundary normalization: `getOperationalShiftDate()` correctly groups 00:00–07:00 IST sessions to prevent exceeding 2 demos per shift.
+- **`src/tests/timezoneService.test.js` (5 tests):**
+  - Slot generation with dual-timezone metadata.
+  - Subject filtering and RFC 5545 `.ics` iCalendar export format validation.
+
+---
+
 ## 📡 API Reference Documentation
 
 | Method | Endpoint | Description |

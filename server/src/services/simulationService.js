@@ -14,26 +14,34 @@ class SimulationService {
     const simulationDate = targetDateStr || todayIST.plus({ days: 1 }).toFormat('yyyy-MM-dd');
 
     const sampleParents = [
-      { name: 'Michael Brown', email: 'mbrown@example.com', tz: 'America/New_York', child: 'Lucas', age: 8, subject: 'Scratch', hour: 10 },
-      { name: 'Jessica Taylor', email: 'jtaylor@example.com', tz: 'America/New_York', child: 'Sophia', age: 11, subject: 'Python', hour: 11 },
-      { name: 'David Wilson', email: 'dwilson@example.com', tz: 'America/Chicago', child: 'Ethan', age: 9, subject: 'Scratch', hour: 10 },
-      { name: 'Emily Davis', email: 'edavis@example.com', tz: 'America/Chicago', child: 'Chloe', age: 14, subject: 'Web Development', hour: 11 },
-      { name: 'James Martinez', email: 'jmartinez@example.com', tz: 'America/Denver', child: 'Liam', age: 7, subject: 'Scratch', hour: 10 },
-      { name: 'Amanda Anderson', email: 'aanderson@example.com', tz: 'America/Los_Angeles', child: 'Mia', age: 12, subject: 'Python', hour: 10 },
-      { name: 'Robert Thomas', email: 'rthomas@example.com', tz: 'America/Los_Angeles', child: 'Noah', age: 10, subject: 'Robotics', hour: 11 },
-      { name: 'Claire White', email: 'cwhite@example.co.uk', tz: 'Europe/London', child: 'Oliver', age: 9, subject: 'Math Olympiad', hour: 14 },
-      { name: 'George Harris', email: 'gharris@example.co.uk', tz: 'Europe/London', child: 'Ava', age: 13, subject: 'AI for Kids', hour: 15 },
-      { name: 'Sophie Clark', email: 'sclark@example.co.uk', tz: 'Europe/London', child: 'Jack', age: 11, subject: 'Python', hour: 16 },
-      { name: 'Daniel Lewis', email: 'dlewis@example.com', tz: 'America/New_York', child: 'Harper', age: 8, subject: 'Scratch', hour: 14 },
-      { name: 'Megan Robinson', email: 'mrobinson@example.com', tz: 'America/New_York', child: 'Mason', age: 15, subject: 'Web Development', hour: 15 },
-      { name: 'Matthew Walker', email: 'mwalker@example.com', tz: 'America/Chicago', child: 'Ella', age: 10, subject: 'Math Olympiad', hour: 14 },
-      { name: 'Hannah Hall', email: 'hhall@example.com', tz: 'America/Denver', child: 'Jackson', age: 12, subject: 'Robotics', hour: 14 },
-      { name: 'Andrew Allen', email: 'aallen@example.com', tz: 'America/Los_Angeles', child: 'Aria', age: 9, subject: 'Scratch', hour: 14 },
-      { name: 'Olivia Young', email: 'oyoung@example.co.uk', tz: 'Europe/London', child: 'Benjamin', age: 13, subject: 'Python', hour: 17 },
-      { name: 'William Hernandez', email: 'whernandez@example.com', tz: 'America/New_York', child: 'Grace', age: 10, subject: 'AI for Kids', hour: 16 },
-      { name: 'Grace King', email: 'gking@example.com', tz: 'America/Chicago', child: 'Henry', age: 8, subject: 'Scratch', hour: 16 },
-      { name: 'Nathan Wright', email: 'nwright@example.com', tz: 'America/Los_Angeles', child: 'Zoe', age: 11, subject: 'Python', hour: 15 },
-      { name: 'Chloe Scott', email: 'cscott@example.co.uk', tz: 'Europe/London', child: 'Alexander', age: 14, subject: 'Web Development', hour: 18 },
+      // Shift 1: UK & EMEA (Mentors 1 & 2: 13:00 - 22:00 IST) -> 4 demos max
+      { name: 'Claire White', email: 'cwhite@example.co.uk', tz: 'Europe/London', child: 'Oliver', age: 9, subject: 'Math Olympiad', hour: 10 },
+      { name: 'George Harris', email: 'gharris@example.co.uk', tz: 'Europe/London', child: 'Ava', age: 13, subject: 'AI for Kids', hour: 11 },
+      { name: 'Sophie Clark', email: 'sclark@example.co.uk', tz: 'Europe/London', child: 'Jack', age: 11, subject: 'Python', hour: 12 },
+      { name: 'Chloe Scott', email: 'cscott@example.co.uk', tz: 'Europe/London', child: 'Alexander', age: 14, subject: 'Web Development', hour: 13 },
+
+      // Shift 2: UK & US Morning (Mentors 3 & 4: 14:00 - 23:00 IST) -> 4 demos max
+      { name: 'Olivia Young', email: 'oyoung@example.co.uk', tz: 'Europe/London', child: 'Benjamin', age: 13, subject: 'Python', hour: 14 },
+      { name: 'Harry Potter', email: 'hpotter@example.co.uk', tz: 'Europe/London', child: 'James', age: 10, subject: 'Scratch', hour: 15 },
+      { name: 'Michael Brown', email: 'mbrown@example.com', tz: 'America/New_York', child: 'Lucas', age: 8, subject: 'Scratch', hour: 9 },
+      { name: 'Jessica Taylor', email: 'jtaylor@example.com', tz: 'America/New_York', child: 'Sophia', age: 11, subject: 'Python', hour: 10 },
+
+      // Shift 3: US Prime Evening (Mentors 5, 6, 7, 8: 18:00 - 03:00 IST) -> 8 demos max
+      { name: 'David Wilson', email: 'dwilson@example.com', tz: 'America/New_York', child: 'Ethan', age: 9, subject: 'Scratch', hour: 11 },
+      { name: 'Emily Davis', email: 'edavis@example.com', tz: 'America/New_York', child: 'Chloe', age: 14, subject: 'Web Development', hour: 12 },
+      { name: 'Daniel Lewis', email: 'dlewis@example.com', tz: 'America/New_York', child: 'Harper', age: 8, subject: 'Scratch', hour: 13 },
+      { name: 'Megan Robinson', email: 'mrobinson@example.com', tz: 'America/New_York', child: 'Mason', age: 15, subject: 'Web Development', hour: 14 },
+      { name: 'Matthew Walker', email: 'mwalker@example.com', tz: 'America/Chicago', child: 'Ella', age: 10, subject: 'Math Olympiad', hour: 11 },
+      { name: 'James Martinez', email: 'jmartinez@example.com', tz: 'America/Chicago', child: 'Liam', age: 7, subject: 'Scratch', hour: 12 },
+      { name: 'Grace King', email: 'gking@example.com', tz: 'America/Chicago', child: 'Henry', age: 8, subject: 'Scratch', hour: 13 },
+      { name: 'Hannah Hall', email: 'hhall@example.com', tz: 'America/Denver', child: 'Jackson', age: 12, subject: 'Robotics', hour: 12 },
+
+      // Shift 4: US West Coast & Late Night (Mentors 9 & 10: 21:00 - 06:00 IST) -> 4 demos max
+      { name: 'Amanda Anderson', email: 'aanderson@example.com', tz: 'America/Los_Angeles', child: 'Mia', age: 12, subject: 'Python', hour: 11 },
+      { name: 'Robert Thomas', email: 'rthomas@example.com', tz: 'America/Los_Angeles', child: 'Noah', age: 10, subject: 'Robotics', hour: 12 },
+      { name: 'Andrew Allen', email: 'aallen@example.com', tz: 'America/Los_Angeles', child: 'Aria', age: 9, subject: 'Scratch', hour: 13 },
+      { name: 'Nathan Wright', email: 'nwright@example.com', tz: 'Europe/London', child: 'Zoe', age: 11, subject: 'Python', hour: 16 },
+
       // 21st parent to test cap overflow and rejection handling
       { name: 'Victoria Adams', email: 'vadams@example.com', tz: 'America/New_York', child: 'Daniel', age: 10, subject: 'Python', hour: 16 }
     ];

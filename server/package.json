@@ -6,12 +6,17 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "luxon": "^3.5.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8"
   },
   "keywords": ["codeyoung", "trial-booking", "appointment", "timezone", "dst", "mentors"],
   "author": "Deeksha G",

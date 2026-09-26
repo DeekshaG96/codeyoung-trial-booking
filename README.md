@@ -1,256 +1,230 @@
-# Codeyoung 1:1 Live Coding Trial Class Appointment Booking System
+<div align="center">
 
-> **Full-Stack Engineering Task Submission for Codeyoung Recruitment Drive (2027 Batch)**  
-> **Candidate:** Deeksha G  
-> **Institute:** Srinivas Institute of Technology, Mangaluru (SITMNG)  
-> **Submission Email Target:** `campus.ka@talentiseglobal.com`  
-> **Email Subject:** `Codeyoung Assignment Task - Deeksha G - SIT Mangaluru (SITMNG)`
+# 🚀 Codeyoung Orbit™
+### Enterprise 1:1 Global Trial Scheduling & Virtual Classroom Engine
 
----
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel%20Production-10b981?style=for-the-badge&logo=vercel)](https://codeyoung-trial-booking-lime.vercel.app/)
+[![Vitest Passing](https://img.shields.io/badge/Vitest-23%2F23%20Passing-success?style=for-the-badge&logo=vitest)](https://github.com/DeekshaG96/codeyoung-trial-booking)
+[![Daily Capacity](https://img.shields.io/badge/Daily%20Capacity-20%20Demos%2FDay%20Strict-blueviolet?style=for-the-badge)](https://github.com/DeekshaG96/codeyoung-trial-booking)
+[![Timezone Precision](https://img.shields.io/badge/Timezone%20Engine-Luxon%20IANA%20DST-blue?style=for-the-badge)](https://github.com/DeekshaG96/codeyoung-trial-booking)
+[![Candidate](https://img.shields.io/badge/Candidate-Deeksha%20G%20(SIT%20Mangaluru)-orange?style=for-the-badge)](https://github.com/DeekshaG96)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## 🌟 Executive Summary & Problem Scope
+**[👉 Launch Live Production App: codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/)**
 
-At **Codeyoung**, parents book a 1:1 "trial class" to experience the platform, meet our mentors, and explore hands-on STEM & coding coaching for their children before subscribing.
+*Submitted for Codeyoung Campus Recruitment Drive (2027 Batch) via Talentise Global.*
 
-### Key Operational Constraints & Requirements:
-- **10 Mentors Available:** Located in India (**Asia/Kolkata - IST**, UTC+05:30).
-- **20 Parents Booking Per Day:** Primarily located across the **United States (EDT/EST, CDT/CST, MDT/MST, PDT/PST)** and the **United Kingdom (BST/GMT)**.
-- **Strict Mentor Cap:** Mentors take **at most 2 demo classes per day**.
-- **System Capacity Alignment:** `10 Mentors × 2 Demos/Day = 20 Demo Classes Maximum Capacity/Day`.
-- **Time Zones & Daylight Saving Time (DST):** Mentors and parents operate across different hemispheres. Clocks in the US and UK change with DST, whereas India does **not** observe DST. All times must be displayed accurately in local time with clear dual-timezone context.
-- **Working Dummy Live Class Link:** Each booking generates a unique link (e.g., `https://meet.codeyoung.com/demo/CY-TR-xxxxxx`) connecting both parties to an interactive demo classroom.
-- **Empathetic Error Handling:** If no mentors are available for a requested slot or daily quotas are reached, provide smart nearest-slot alternatives and a priority waitlist option.
+</div>
 
 ---
 
-## 🏗️ Architecture & Technology Stack
+## 📌 Executive Summary & Submission Information
+
+| Detail | Information |
+|---|---|
+| **Candidate Name** | **Deeksha G** |
+| **Institute** | **Srinivas Institute of Technology, Mangaluru (SITMNG)** |
+| **Recruitment Partner** | **Talentise Global** (`campus.ka@talentiseglobal.com`) |
+| **Email Subject Line** | `Codeyoung Assignment Task - Deeksha G - SIT Mangaluru (SITMNG)` |
+| **Live Production URL** | **[https://codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/)** |
+| **GitHub Repository** | **[https://github.com/DeekshaG96/codeyoung-trial-booking](https://github.com/DeekshaG96/codeyoung-trial-booking)** |
+
+---
+
+## 🌟 The Business Problem & System Constraints
+
+At **Codeyoung**, parents book a 1:1 "trial class" to evaluate the platform, meet educators, and explore personalized coding curricula before subscribing.
+
+### Core Mathematical Constraints:
+1. **10 Mentors Available:** Located in India (**`Asia/Kolkata` - IST**, UTC+05:30).
+2. **20 Parents Booking Per Day:** Primarily located across North America (**EDT/EST, CDT/CST, MDT/MST, PDT/PST**) and the United Kingdom (**BST/GMT**).
+3. **Strict Mentor Quota Limit:** Mentors take **at most 2 demo classes per day** to guarantee maximum pedagogical attention and prevent burnout.
+4. **System Capacity Equilibrium:**
+   $$\text{System Daily Capacity} = 10 \text{ Mentors} \times 2 \text{ Demos/Day} = 20 \text{ Demos Maximum / Day}$$
+5. **The IANA Daylight Saving Time (DST) Challenge:** 
+   - North America and the UK observe seasonal Daylight Saving Time shifts (e.g. US Energy Policy Act of 2005; UK Summer Time Act 1972).
+   - India does **not** observe DST (always fixed at UTC+05:30).
+   - Hardcoded offsets (e.g. `IST = EST + 10.5h`) cause booking collisions and missed appointments. Codeyoung Orbit uses compiled IANA tz databases to compute canonical ISO-8601 UTC timestamps with active DST detection.
+6. **Working Dummy Live Class Link:** Each confirmed booking generates a dummy link (`https://meet.codeyoung.com/demo/CY-TR-xxxxxx`) connecting both parties to an interactive browser classroom with Python and Scratch sandboxes.
+7. **Empathetic Error Handling:** When all 10 mentors are fully booked or slots collide, the engine provides the 3 nearest available slots and a priority waitlist.
+
+---
+
+## 🏆 Key Architectural Innovations
+
+```mermaid
+flowchart TD
+    Parent["Parent in US / UK"] -->|Step 1| ChildStep["Child Details & Age Recommender"]
+    ChildStep -->|Step 2| SlotPicker["Slot Picker with Live Dual-Timezone Clock"]
+    SlotPicker -->|Step 3| ParentDetails["Parent Contact & Verification"]
+    ParentDetails -->|Execute Booking| Allocator["Smart Load Balancing & 2-Demo Cap Engine"]
+    Allocator -->|Confirmed| Success["Booking Confirmation & Confetti"]
+    Success --> GCal["Add to Google / Outlook Calendar"]
+    Success --> MeetingLink["Dummy Classroom Link Generated"]
+    Success --> CommsHub["Omnichannel Dispatch: HTML Email & WhatsApp Alert"]
+    MeetingLink --> Classroom["Live Classroom Sandbox & STEM Certificate Generator"]
+```
+
+### 1. 🕒 Live Dual-Timezone Synchronizer Strip & DST Engine
+- **Parent Local Clock:** Real-time ticking clock displaying local time, formatted timezone name (`EDT`, `CDT`, `PDT`, `BST`), and active DST status badge (`☀️ Daylight Saving Time Active: EDT (UTC-04:00)`).
+- **Mentor Clock:** Real-time clock for Bangalore, India (`Asia/Kolkata` - IST UTC+05:30).
+- **Interactive DST Inspector Modal:** Lets evaluators select transition dates (e.g., US March 8 spring-forward 23h day, US Nov 1 fall-back 25h day) and view live offset calculations.
+
+### 2. 🎯 Age-Adaptive Pathway & 45-Minute Project Teaser
+- Dynamic tagging: Flagging disciplines with `⭐ Best for Age X` based on the child's age.
+- Experience Calibrator: Parents select prior coding exposure (*🐣 Beginner*, *🚀 Explorer*, *⚡ Advanced*).
+- 45-Minute Project Preview: Shows what the student builds in their trial session (*Space Alien Maze* for Scratch, *AI Codebreaker* for Python, *Interactive Cyber Portfolio* for Web Dev).
+
+### 3. 📱 Omnichannel Communication Hub (HTML Email + WhatsApp Simulation)
+- Dispatches localized emails formatted with parent local time and mentor IST time.
+- **WhatsApp Simulator:** Evaluators can toggle to the WhatsApp view to see the mobile alert copy with verified business checkmarks and join links.
+
+### 4. 🎓 Virtual Classroom & Official STEM Trial Certificate
+- Built-in live coding sandbox with Python execution terminal and visual Scratch block canvas.
+- **Trial Certificate Modal:** Generates an official Codeyoung × Talentise Global Certificate of Achievement with student name, verification ID, date, and 1-click **"Print / Save as PDF"** functionality.
+
+### 5. ⚡ Evaluator Quick Demo Shortcuts Dock
+- Floating bottom-right action pill allowing evaluators to load pre-configured test scenarios (US Parent, UK Parent, 20-Parent Simulation, Mentor Dashboard, Classroom) with one click.
+
+---
+
+## 👨‍🏫 10-Mentor Operational Shift Architecture
+
+To cover peak evening hours for UK and North American families while preventing educator fatigue, mentors operate in 4 structured shifts in India Standard Time:
+
+| Shift Name | IST Operating Hours | Mentors Assigned | Coverage Window | Max Demos |
+|---|---|---|---|---|
+| **UK & EMEA Shift** | 13:00 – 22:00 IST (1 PM – 10 PM) | Aarav Sharma, Priya Nair | UK / Europe Afternoon & Evening | 4 demos |
+| **UK & US Morning Shift** | 14:00 – 23:00 IST (2 PM – 11 PM) | Rohan Mukherjee, Ananya Rao | UK Late Evening / US East Coast Morning | 4 demos |
+| **US Prime Evening Shift** | 18:00 – 03:00 IST (6 PM – 3 AM) | Vikramaditya Iyer, Neha Gupta, Siddharth Verma, Kavya Patel | US East & Central Peak After-School Hours | 8 demos |
+| **US West Coast & Late Night** | 21:00 – 06:00 IST (9 PM – 6 AM) | Aditya Kulkarni, Tanvi Joshi | US Pacific / Mountain Evening | 4 demos |
+| **Total Platform Capacity** | **24/7 Global Synchronization** | **10 Dedicated Mentors** | **Full US & UK Alignment** | **20 Demos Max** |
+
+### Midnight Shift Normalization (`getOperationalShiftDate`):
+A US evening session at `5:00 PM EDT` on Saturday corresponds to `02:30 AM IST` on Sunday.
+If sessions were tracked by calendar date in India, a night-shift mentor could take 2 sessions before midnight and 2 sessions after midnight (4 sessions in one shift).
+Our scheduler normalizes sessions occurring between `00:00` and `07:00 IST` to the **calendar date when the work shift commenced**, enforcing the **strict $\le 2$ demo cap per shift**.
+
+---
+
+## 🧪 Automated Testing Suite (23/23 Vitest Tests Passing)
+
+Run tests locally with:
+```bash
+npm test
+```
+
+### Test Suite Matrix:
 
 ```
-codeyoung-trial-booking/
-├── server/                          # Backend API Engine (NodeJS + Express)
-│   ├── src/
-│   │   ├── config/timezones.js      # IANA timezones, DST calculation engine
-│   │   ├── data/
-│   │   │   ├── mentorsData.js       # 10 Mentors with IST shift allocations & specialties
-│   │   │   └── store.js             # Collision detection, shift-date tracking & state store
-│   │   ├── services/
-│   │   │   ├── timezoneService.js   # Slot generator, DST detector, .ics iCalendar generator
-│   │   │   ├── mentorService.js     # Schedule aggregator & daily quota analytics
-│   │   │   ├── bookingService.js    # Smart mentor matching, 2-demo daily cap enforcement
-│   │   │   ├── notificationService.js # Simulated email dispatch with localized times
-│   │   │   └── simulationService.js # 20-Parent batch load test runner
-│   │   └── routes/                  # Modular RESTful API endpoints
-│   └── server.js                    # Express application entrypoint
-│
-└── client/                          # Frontend Application (React + Vite)
-    ├── src/
-    │   ├── components/
-    │   │   ├── Navbar.jsx           # Multi-portal switcher (Booking, Mentors, Classroom, Simulation, Emails)
-    │   │   ├── ParentBooking/       # 4-Step Booking Wizard with real-time DST badges
-    │   │   ├── MentorDashboard/     # 10 Mentors grid, daily quota progress bars, schedule inspector
-    │   │   ├── VirtualClassroom/    # Interactive 1:1 Live Classroom preview (video, Python editor)
-    │   │   └── EmailSimulator/      # Live viewer of dispatched parent & mentor emails
-    │   ├── services/api.js          # Centralized API client with Vite proxy
-    │   └── index.css                # Custom modern design system (Outfit & Plus Jakarta Sans)
+ RUN  v2.1.9 server/src/tests
+
+ ✓ src/tests/dst.test.js (8 tests)
+   ✓ US Spring-Forward (March 8, 2026) is a 23-hour day in UTC
+   ✓ UK Spring-Forward (March 29, 2026) is a 23-hour day in UTC
+   ✓ US Fall-Back (November 1, 2026) is a 25-hour day in UTC
+   ✓ UK Fall-Back (October 25, 2026) is a 25-hour day in UTC
+   ✓ India (Asia/Kolkata) has no DST and is always 24 hours
+   ✓ Fixed IST mentor instant shifts clock hour in New York across DST boundary
+   ✓ formatDstIndicator detects DST in summer vs standard in winter
+   ✓ Luxon formats offset with GMT/UTC and minute precision
+
+ ✓ src/tests/bookingService.test.js (7 tests)
+   ✓ Validates mandatory fields and throws error on missing data
+   ✓ Creates booking with dummy link meeting URL
+   ✓ Enforces strict 2-demo daily cap per mentor
+   ✓ Load balances by prioritizing mentor with 0 demos over 1 demo
+   ✓ Avoids overlapping bookings for the same mentor
+   ✓ Returns empathetic error with alternative slots when fully booked
+   ✓ Allows priority waitlist submission
+
+ ✓ src/tests/capacityAndSimulation.test.js (3 tests)
+   ✓ Exactly 20 parents can book without exceeding the 2-demo daily limit
+   ✓ 21st parent booking is rejected as capacity overflow
+   ✓ Midnight boundary normalization groups 00:00-07:00 IST to shift date
+
+ ✓ src/tests/timezoneService.test.js (5 tests)
+   ✓ Generates available prospective slots in parent local timezone
+   ✓ Filters slots by subject specialization
+   ✓ Converts local slot back to ISO UTC accurately
+   ✓ Formats RFC 5545 .ics iCalendar export with correct UTC timestamps
+   ✓ Lists all supported timezones with valid IANA identifiers
+
+Test Files  4 passed (4)
+     Tests  23 passed (23)
 ```
 
-### Technology Choices:
-1. **Frontend:** React 19 (Vite), modern CSS design system, Lucide React icons, Luxon for timezone calculations, Canvas-Confetti for celebratory confirmation.
-2. **Backend:** Node.js, Express, Luxon (IANA time zone database & DST handling).
-3. **Calendar Integration:** RFC 5545 compliant `.ics` iCalendar generation for 1-click addition to Google Calendar, Apple Calendar, and Outlook.
-
 ---
 
-## ⏰ Time Zones & Daylight Saving Time (DST) Strategy
+## 📡 RESTful API Specification
 
-### The "DST Niggle" Explained:
-- Parents in the US experience DST shifts (e.g. EDT is UTC-4 in summer, EST is UTC-5 in winter).
-- Parents in the UK experience DST shifts (BST is UTC+1 in summer, GMT is UTC+0 in winter).
-- Mentors in India are **always on fixed UTC+05:30 (IST)** with **no DST**.
-- **Common Failure Mode:** Applications that hardcode fixed offsets (e.g. `IST = EST + 10.5 hours`) break as soon as clocks change in March or November.
-
-### Our Solution:
-1. **Canonical UTC Storage:** Every slot, booking, and mentor session is stored internally as an ISO-8601 UTC timestamp (`YYYY-MM-DDTHH:mm:ss.sssZ`).
-2. **Dynamic IANA Timezone Resolution:** We utilize the IANA Time Zone Database via Luxon. When a parent requests `2026-09-26` in `America/New_York`, the engine queries `zone.isInDST` to calculate the exact offset (`-04:00` for EDT) and formats the visual indicator pill (`☀️ Daylight Saving Time Active: EDT`).
-3. **Shift Date Normalization Across Midnight:**
-   - A US evening slot (e.g. 5:00 PM EDT on Saturday) corresponds to early morning (02:30 AM IST on Sunday) in India.
-   - If mentor demo limits were calculated by pure calendar date in IST, a mentor working a night shift could take 2 sessions before midnight and 2 sessions after midnight (4 sessions in one shift!).
-   - Our system implements `getOperationalShiftDate()`: sessions occurring between `00:00` and `07:00 AM IST` count toward the **shift date of the evening when the shift started**, strictly capping mentors at **2 demos per work shift**.
-
----
-
-## 👨‍🏫 Mentor Rules & Assignment Algorithm
-
-### Pre-seeded 10 Mentors:
-Each mentor has defined working hours in IST to cover European and North American peak parent hours:
-- **UK & EMEA Shifts (13:00 - 22:00 IST):** Aarav Sharma, Priya Nair.
-- **UK & US Morning Shifts (14:00 - 23:00 IST):** Rohan Mukherjee, Ananya Rao.
-- **US Prime Evening Shifts (18:00 - 03:00 IST):** Vikramaditya Iyer, Neha Gupta, Siddharth Verma, Kavya Patel.
-- **US West Coast & Late Night Shifts (21:00 - 06:00 IST):** Aditya Kulkarni, Tanvi Joshi.
-
-### Assignment Logic (`BookingService`):
-When a parent selects a slot:
-1. **Shift Check:** Validates that the slot is within the mentor's operational shift hours in IST.
-2. **Collision Check:** Checks for time overlaps with confirmed bookings (`max(start1, start2) < min(end1, end2)`).
-3. **Strict 2-Demo Limit:** Ensures `bookingsOnShiftDate.length < 2`. If a mentor has already taken 2 demos, they are excluded.
-4. **Smart Load Balancing:** Candidate mentors are ranked:
-   - *Primary:* Mentors with 0 demos booked today are prioritized over mentors with 1 demo.
-   - *Secondary:* Mentors with specialized expertise in the chosen subject (Scratch, Python, Web Dev, Robotics, Math Olympiad, Roblox).
-   - *Tertiary:* Highest teacher rating.
-
----
-
-## 🛡️ Empathetic Error Handling & Edge Cases
-
-When all 10 mentors are fully booked or have reached their daily 2-demo capacity:
-1. **User-Friendly Error Message:** "All 10 mentors are either fully booked or have reached their maximum daily capacity of 2 demo classes for this time slot."
-2. **Smart Alternative Suggestions:** The API automatically computes the 3 nearest available slots on the same date or the following day and presents them as 1-click selectable chips.
-3. **Priority Waitlist:** Parents can join the waitlist with their ideal time window, notifying academic counselors for VIP slot accommodation.
-
----
-
-## 💻 Virtual Live Classroom Demo
-
-Clicking the dummy link (`https://meet.codeyoung.com/demo/CY-TR-xxxxxx`) opens our **interactive 1:1 Live Classroom preview**:
-- Live session countdown timer (45:00 minutes).
-- Mentor and Student video feeds with active audio indicators.
-- **Interactive Python & Scratch Editor:** Parents and students can edit Python code and click **"Run Code"** to execute it in a simulated browser terminal.
-- Milestone progress checklist tracking curriculum progress.
-- Live chat channel.
-
----
-
-## ⚡ 20-Parent Booking Simulation Test
-
-To prove compliance with the prompt's volume requirement (**20 parents/day across 10 mentors capped at 2 demos**):
-- Navigate to the **"20-Parent Test"** tab in the navbar.
-- Click **"Simulate 20 Parents Booking"**.
-- The engine runs 20 simultaneous parent requests from New York, Chicago, Denver, Los Angeles, and London.
-- The audit report proves:
-  - Exactly 20 trial classes are booked.
-  - Every mentor takes at most 2 demos (`demosBooked <= 2`).
-  - When an additional (21st) parent tries to book, the system handles the limit gracefully.
+| Method | Endpoint | Query / Body | Description |
+|---|---|---|---|
+| `GET` | `/api/health` | - | Server health, mentor count, and deployment metadata |
+| `GET` | `/api/timezones` | - | Supported timezones with live IANA DST flags |
+| `GET` | `/api/available-slots` | `timezone`, `date`, `subject` | Returns slots with dual-timezone metadata and available mentor count |
+| `POST` | `/api/bookings` | JSON payload (parent, child, slot, tz) | Matches mentor, enforces 2-demo cap, creates booking |
+| `GET` | `/api/bookings` | - | Lists all active bookings |
+| `GET` | `/api/bookings/:id` | - | Retrieves booking details by reference ID |
+| `GET` | `/api/bookings/:id/calendar.ics` | - | Downloads RFC 5545 iCalendar `.ics` file |
+| `POST` | `/api/bookings/waitlist` | JSON payload | Registers parent on priority waitlist |
+| `GET` | `/api/mentors` | `date` | Lists 10 mentors with daily quota meter (`demosBookedToday / 2`) |
+| `GET` | `/api/mentors/:id/schedule` | `date` | Detailed day schedule for a specific mentor |
+| `POST` | `/api/simulate/20-parents` | `date`, `count` | Runs automated 20-parent stress test across shifts |
+| `POST` | `/api/reset-data` | - | Resets state store back to baseline seed state |
+| `GET` | `/api/notifications` | - | Logs of dispatched email and WhatsApp notifications |
 
 ---
 
 ## 🚀 Setup & Local Execution Guide
 
 ### Prerequisites:
-- **Node.js:** v18.0.0 or higher (Tested on v24.16.0)
-- **npm:** v9.0.0 or higher (Tested on v11.13.0)
+- **Node.js:** v18.0.0 or higher
+- **npm:** v9.0.0 or higher
 
 ### 1. Clone & Install Dependencies
-
 ```bash
-# Clone the repository
 git clone https://github.com/DeekshaG96/codeyoung-trial-booking.git
 cd codeyoung-trial-booking
 
-# Install dependencies for both server and client in one command
+# Installs root, client, and server dependencies in one step:
 npm run install:all
 ```
 
-*(Alternatively, install individually: `cd server && npm install && cd ../client && npm install`)*
-
-### 2. Run the Application
-
-You can start both the backend API and frontend Vite dev server concurrently:
-
+### 2. Run Locally in Development Mode
 ```bash
-# From the root directory:
-node start-dev.js
-```
-
-Or run them in separate terminal windows:
-
-**Terminal 1 (Backend API):**
-```bash
-cd server
+# Starts both the Express backend (port 5001) and Vite client (port 3000):
 npm run dev
-# Server starts at http://localhost:5001
 ```
+Open **`http://localhost:3000`** in your browser.
 
-**Terminal 2 (Frontend Client):**
+### 3. Run Automated Tests
 ```bash
-cd client
-npm run dev
-# Vite client starts at http://localhost:3000
-```
-
-### 3. Open in Browser:
-Visit **`http://localhost:3000`** in Google Chrome or any modern web browser.
-
----
-
-## 🧪 Automated Testing Suite (Vitest)
-
-The project includes an automated test suite with **23 Vitest unit tests** covering mathematical DST transitions, timezone precision, load balancing, collision avoidance, and system capacity limits:
-
-```bash
-# Run the test suite from root
 npm test
-
-# Or directly in the server directory
-cd server && npm test
 ```
 
-### Test Coverage Highlights:
-- **`src/tests/dst.test.js` (8 tests):**
-  - Mathematical proof that US "spring forward" (March 8, 2026) is a 23-hour day in UTC.
-  - Proof that US "fall back" (November 1, 2026) is a 25-hour day in UTC.
-  - Proof that UK "spring forward" & "fall back" days are 23h and 25h in UTC.
-  - Verifies India (`Asia/Kolkata`) has NO DST (always fixed 24h, UTC+05:30).
-  - Verifies that a fixed mentor instant in IST shifts clock hour in New York before vs after Nov 1, 2026 (EDT vs EST).
-  - Dynamic `isInDST` detection and accurate offset formatting.
-- **`src/tests/bookingService.test.js` (7 tests):**
-  - Validation of mandatory input fields and timestamps.
-  - Successful booking creation and dummy link generation.
-  - **Strict 2-demo daily cap** enforcement per mentor.
-  - **Load-balanced assignment:** prioritizes mentors with 0 demos over mentors with 1 demo.
-  - **Collision avoidance:** prevents overlapping bookings for the same mentor.
-  - Empathetic error state returning nearest slot recommendations and waitlist.
-- **`src/tests/capacityAndSimulation.test.js` (3 tests):**
-  - Automated 20-parent stress test proving all 20 bookings succeed across 10 mentors with `demosBooked <= 2`.
-  - Rejection of the 21st parent overflow.
-  - Midnight boundary normalization: `getOperationalShiftDate()` correctly groups 00:00–07:00 IST sessions to prevent exceeding 2 demos per shift.
-- **`src/tests/timezoneService.test.js` (5 tests):**
-  - Slot generation with dual-timezone metadata.
-  - Subject filtering and RFC 5545 `.ics` iCalendar export format validation.
+### 4. Build for Production
+```bash
+npm run build
+```
 
 ---
 
-## 📡 API Reference Documentation
+## ☁️ Vercel Serverless Architecture
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | Health check endpoint returning server status & mentor count |
-| `GET` | `/api/available-slots?timezone=America/New_York&date=YYYY-MM-DD` | Returns prospective slots with DST metadata & mentor availability |
-| `GET` | `/api/timezones` | Lists all supported international timezones with DST flags |
-| `POST` | `/api/bookings` | Books trial class, matches mentor, enforces 2-demo cap, generates meeting link |
-| `GET` | `/api/bookings` | Lists all confirmed bookings |
-| `GET` | `/api/bookings/:id` | Retrieves specific booking details |
-| `GET` | `/api/bookings/:id/calendar.ics` | Downloads RFC 5545 iCalendar invite |
-| `POST` | `/api/bookings/waitlist` | Registers parent on priority waitlist |
-| `GET` | `/api/mentors?date=YYYY-MM-DD` | Lists all 10 mentors with daily 2-demo quota meters |
-| `GET` | `/api/mentors/:id/schedule` | Retrieves localized schedule for a specific mentor |
-| `POST` | `/api/simulate/20-parents` | Triggers automated batch stress test of 20 parents |
-| `POST` | `/api/reset-data` | Resets store back to initial seed state |
-| `GET` | `/api/notifications` | Returns logs of dispatched localized emails |
+The monorepo is configured for continuous deployment on **Vercel**:
+- **Static Frontend Bundle:** Compiled by Vite into `client/dist`.
+- **Serverless API Function:** `api/index.js` wraps the Express application to process all `/api/*` routes.
+- **Single Port & Rewrite Routing:** Configured in `vercel.json` with SPA routing fallbacks.
+
+Live deployment: **[codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/)**
 
 ---
 
-## 📝 Submission Checklist
+<div align="center">
 
-- [x] Full-Stack App: React frontend + Node.js Express backend.
-- [x] 10 Mentors seeded with IST working hours and profiles.
-- [x] Strict business rule enforced: mentors have at most 2 demo classes a day.
-- [x] Time zones and Daylight Saving Time (DST) handled dynamically via Luxon.
-- [x] Working dummy link generated (`https://meet.codeyoung.com/demo/:id`) taking users to a live interactive classroom.
-- [x] Empathetic error handling with smart nearest available slot recommendations.
-- [x] Automated 20-parent booking batch simulation test suite.
-- [x] `README.md` complete with architecture, design rationale, and setup guide.
-- [x] `TRANSCRIPT.md` included documenting AI pair-programming session.
+**Engineered with precision for Talentise Global × Codeyoung**  
+*Candidate: Deeksha G (Srinivas Institute of Technology, Mangaluru - 2027 Batch)*  
+*Target: `campus.ka@talentiseglobal.com`*
 
----
-
-*Engineered with precision by **Deeksha G** (SIT Mangaluru - 2027 Batch).*
+</div>

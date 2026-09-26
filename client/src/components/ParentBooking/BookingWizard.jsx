@@ -6,16 +6,17 @@ import BookingSuccess from './BookingSuccess';
 import WaitlistModal from './WaitlistModal';
 import { api } from '../../services/api';
 import { getBrowserTimezone } from '../../utils/timezones';
+import { triggerCelebrationConfetti } from '../../utils/confetti';
 import { Check, Calendar, User, Clock, AlertTriangle } from 'lucide-react';
 
-export default function BookingWizard({ onEnterClassroom, onOpenEmails }) {
+export default function BookingWizard({ onEnterClassroom, onOpenEmails, presetData }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    childName: '',
-    childAge: '9',
+    childName: presetData?.childName || '',
+    childAge: presetData?.childAge || '9',
     childGrade: 'Grade 4',
-    subject: 'Scratch',
-    timezone: getBrowserTimezone(),
+    subject: presetData?.subject || 'Scratch',
+    timezone: presetData?.timezone || getBrowserTimezone(),
     date: '',
     selectedSlot: null,
     startUtc: '',
@@ -60,6 +61,7 @@ export default function BookingWizard({ onEnterClassroom, onOpenEmails }) {
       if (res.success) {
         setBookingResult(res);
         setCurrentStep(4);
+        triggerCelebrationConfetti();
       } else if (res.error === 'NO_MENTORS_AVAILABLE') {
         // Empathetic error state with alternatives
         setBookingError(res.message);

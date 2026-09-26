@@ -1,18 +1,30 @@
 import React from 'react';
-import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles } from 'lucide-react';
+import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, ShieldCheck } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, onResetData, onOpenClassroomDirect }) {
+export default function Navbar({ 
+  activeTab, 
+  setActiveTab, 
+  onResetData, 
+  onOpenDstInspector,
+  onOpenQuickDemo
+}) {
   return (
     <header className="header-nav" id="main-navigation-header">
       <div className="header-inner">
         {/* Brand Identity */}
-        <div className="brand-block" onClick={() => setActiveTab('booking')} id="brand-home-btn">
-          <div className="brand-logo-badge">CY</div>
+        <div className="brand-block" onClick={() => setActiveTab('booking')} id="brand-home-btn" style={{ cursor: 'pointer' }}>
+          <div className="brand-logo-badge" style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)', boxShadow: '0 4px 10px rgba(79, 70, 229, 0.35)' }}>
+            CY
+          </div>
           <div>
-            <div className="brand-text-title">
-              Codeyoung <Sparkles size={16} color="#f59e0b" />
+            <div className="brand-text-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span>Codeyoung Orbit</span>
+              <span style={{ fontSize: '11px', verticalAlign: 'super', color: '#6366f1', fontWeight: 800 }}>™</span>
+              <span style={{ background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)', color: '#92400e', fontSize: '10px', fontWeight: 800, padding: '1px 7px', borderRadius: '12px', border: '1px solid #fcd34d' }}>
+                ENTERPRISE
+              </span>
             </div>
-            <div className="brand-text-subtitle">1:1 Live Coding Trial Platform</div>
+            <div className="brand-text-subtitle">1:1 Global Trial Scheduling & Mentorship Platform</div>
           </div>
         </div>
 
@@ -60,12 +72,23 @@ export default function Navbar({ activeTab, setActiveTab, onResetData, onOpenCla
             onClick={() => setActiveTab('emails')}
           >
             <Mail size={16} />
-            <span>Email Logs</span>
+            <span>Communications Hub</span>
           </button>
         </nav>
 
         {/* Header Right Actions */}
-        <div className="header-actions">
+        <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            id="btn-nav-dst-inspector"
+            className="btn-secondary"
+            style={{ padding: '6px 12px', fontSize: '12px', background: '#f8fafc' }}
+            onClick={onOpenDstInspector}
+            title="Inspect IANA Daylight Saving Time (DST) Transitions"
+          >
+            <Compass size={14} color="#4f46e5" />
+            <span>DST Engine</span>
+          </button>
+
           <button
             id="btn-quick-reset"
             className="btn-secondary"

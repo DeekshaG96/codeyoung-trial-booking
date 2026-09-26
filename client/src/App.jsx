@@ -5,13 +5,17 @@ import MentorOverview from './components/MentorDashboard/MentorOverview';
 import SimulationRunner from './components/MentorDashboard/SimulationRunner';
 import VirtualClassroom from './components/VirtualClassroom/VirtualClassroom';
 import EmailModal from './components/EmailSimulator/EmailModal';
+import DstInspectorModal from './components/DstInspectorModal';
+import QuickEvaluatorBar from './components/QuickEvaluatorBar';
 import { api } from './services/api';
-import { Sparkles, Calendar, Clock, Globe, Shield, Award, CheckCircle } from 'lucide-react';
+import { Sparkles, Calendar, Clock, Globe, Shield, Award, CheckCircle, ShieldCheck } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('booking');
   const [activeBookingId, setActiveBookingId] = useState(null);
   const [resetToast, setResetToast] = useState(null);
+  const [isDstInspectorOpen, setIsDstInspectorOpen] = useState(false);
+  const [evaluatorPreset, setEvaluatorPreset] = useState(null);
 
   const handleResetData = async () => {
     try {
@@ -29,6 +33,11 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSelectPreset = (preset) => {
+    setEvaluatorPreset(preset);
+    setActiveTab('booking');
+  };
+
   return (
     <div className="app-container" id="codeyoung-app-root">
       {/* Top Navbar */}
@@ -36,6 +45,7 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onResetData={handleResetData}
+        onOpenDstInspector={() => setIsDstInspectorOpen(true)}
       />
 
       {/* Global Reset Toast */}
@@ -53,13 +63,13 @@ export default function App() {
             <div className="hero-text-col">
               <div className="hero-badge-pill">
                 <Sparkles size={14} color="#fbbf24" />
-                <span>Global 1:1 Live Trial Classes • Ages 5-17</span>
+                <span>Codeyoung Orbit™ • Global 1:1 Live Coding Trial Platform</span>
               </div>
               <h1 className="hero-title">
                 Inspire Your Child's Tech Future with 1:1 Live Coding Coaching
               </h1>
               <p className="hero-subtitle">
-                Experience Codeyoung's award-winning curriculum. Pick a convenient time in your local time zone — our matching engine automatically pairs your child with a certified STEM mentor in India.
+                Experience Codeyoung's award-winning curriculum. Pick a convenient time in your local time zone — our matching engine automatically pairs your child with a certified STEM mentor in India with zero timezone friction.
               </p>
             </div>
 
@@ -76,7 +86,7 @@ export default function App() {
               <div style={{ width: 1, background: 'rgba(255,255,255,0.2)' }} />
               <div className="hero-stat-item">
                 <div className="hero-stat-val">100%</div>
-                <div className="hero-stat-label">DST Synced</div>
+                <div className="hero-stat-label">IANA DST Synced</div>
               </div>
             </div>
           </div>
@@ -87,6 +97,8 @@ export default function App() {
       <main className="main-wrapper" style={{ marginTop: activeTab === 'booking' ? '-24px' : '32px' }}>
         {activeTab === 'booking' && (
           <BookingWizard
+            key={evaluatorPreset ? JSON.stringify(evaluatorPreset) : 'default'}
+            presetData={evaluatorPreset}
             onEnterClassroom={handleEnterClassroom}
             onOpenEmails={() => setActiveTab('emails')}
           />
@@ -118,11 +130,25 @@ export default function App() {
         )}
       </main>
 
+      {/* Quick Evaluator Dock */}
+      <QuickEvaluatorBar
+        onSelectPreset={handleSelectPreset}
+        setActiveTab={setActiveTab}
+        onEnterClassroom={handleEnterClassroom}
+      />
+
+      {/* DST Inspector Modal */}
+      {isDstInspectorOpen && (
+        <DstInspectorModal
+          onClose={() => setIsDstInspectorOpen(false)}
+        />
+      )}
+
       {/* Footer */}
       <footer className="app-footer">
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
-            <strong>Codeyoung 1:1 Live Coding Appointment Booking Platform</strong>
+            <strong>Codeyoung Orbit™ | 1:1 Live Coding Appointment Booking Platform</strong>
             <div style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>
               Full-Stack Engineering Task • Talentise Global Campus Recruitment
             </div>
@@ -131,7 +157,7 @@ export default function App() {
           <div style={{ textAlign: 'right', fontSize: '12.5px' }}>
             <div>Engineered by <strong>Deeksha G</strong> (SIT Mangaluru)</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '11.5px' }}>
-              React • NodeJS • Luxon IANA Timezones • Strict 2-Demo Limit Engine
+              React 19 • Node.js • Luxon IANA Timezones • Strict 2-Demo Limit Engine
             </div>
           </div>
         </div>

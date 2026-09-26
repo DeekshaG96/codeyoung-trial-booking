@@ -8,7 +8,9 @@
     "dev:client": "npm run dev --prefix client",
     "dev": "node start-dev.js",
     "test": "npm test --prefix server",
-    "build:client": "npm run build --prefix client"
+    "build:client": "npm run build --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "node server/server.js"
   },
   "author": "Deeksha G",
   "license": "MIT"

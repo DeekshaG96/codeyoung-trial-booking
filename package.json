@@ -2,6 +2,7 @@
   "name": "codeyoung-trial-booking-monorepo",
   "version": "1.0.0",
   "description": "Codeyoung 1:1 Live Trial Class Appointment Booking System",
+  "type": "module",
   "scripts": {
     "install:all": "npm install --prefix server && npm install --prefix client",
     "dev:server": "npm run dev --prefix server",
@@ -11,6 +12,11 @@
     "build:client": "npm run build --prefix client",
     "build": "npm run build --prefix client",
     "start": "node server/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "luxon": "^3.5.0"
   },
   "author": "Deeksha G",
   "license": "MIT"

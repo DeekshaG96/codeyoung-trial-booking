@@ -41,6 +41,23 @@ export default function BookingSuccess({
     }
   };
 
+  const getGoogleCalendarUrl = () => {
+    if (!bookingData?.startUtc || !bookingData?.endUtc) return '#';
+    const s = bookingData.startUtc.replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const e = bookingData.endUtc.replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const title = encodeURIComponent(`Codeyoung 1:1 Live Trial Class - ${bookingData.childName} (${bookingData.subject})`);
+    const details = encodeURIComponent(`Join Codeyoung Live Classroom: ${bookingData.meetingLink}\nMentor: ${bookingData.mentorName || assignedMentor?.name}\nBooking Reference ID: ${bookingData.id}\nDual-Timezone Times:\n• Parent Local: ${bookingData.parentLocalTime}\n• Mentor IST: ${bookingData.mentorLocalTime}`);
+    const location = encodeURIComponent(bookingData.meetingLink || 'Codeyoung Virtual Live Classroom');
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${s}/${e}&details=${details}&location=${location}`;
+  };
+
+  const getOutlookCalendarUrl = () => {
+    if (!bookingData?.startUtc || !bookingData?.endUtc) return '#';
+    const title = encodeURIComponent(`Codeyoung 1:1 Live Trial Class - ${bookingData.childName} (${bookingData.subject})`);
+    const details = encodeURIComponent(`Join Live Classroom: ${bookingData.meetingLink}\nBooking ID: ${bookingData.id}`);
+    return `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&startdt=${bookingData.startUtc}&enddt=${bookingData.endUtc}&body=${details}&location=${encodeURIComponent(bookingData.meetingLink || '')}`;
+  };
+
   return (
     <div className="success-card" id="booking-success-view">
       {/* Icon Badge */}
@@ -149,14 +166,38 @@ export default function BookingSuccess({
       </div>
 
       {/* Secondary Actions */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap', marginTop: '24px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap', marginTop: '24px' }}>
+        <a
+          id="btn-add-google-calendar"
+          className="btn-secondary"
+          href={getGoogleCalendarUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none' }}
+        >
+          <Calendar size={16} color="#4285F4" />
+          <span>Add to Google Calendar</span>
+        </a>
+
+        <a
+          id="btn-add-outlook-calendar"
+          className="btn-secondary"
+          href={getOutlookCalendarUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none' }}
+        >
+          <Calendar size={16} color="#0078D4" />
+          <span>Add to Outlook</span>
+        </a>
+
         <button
           id="btn-download-ics"
           className="btn-secondary"
           onClick={handleDownloadCalendar}
         >
           <Calendar size={16} />
-          <span>Add to Calendar (.ics)</span>
+          <span>Download .ics</span>
         </button>
 
         <button

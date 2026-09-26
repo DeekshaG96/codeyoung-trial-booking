@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Video, Mic, MicOff, VideoOff, Play, Send, CheckCircle2, 
-  Terminal, Sparkles, MessageSquare, PhoneOff, Share2, Layers, Award 
+  Terminal, Sparkles, MessageSquare, PhoneOff, Share2, Layers, Award,
+  Printer, X, Star, ShieldCheck, Download
 } from 'lucide-react';
 import { api } from '../../services/api';
 
@@ -9,14 +10,16 @@ export default function VirtualClassroom({ bookingId, onBackToBooking }) {
   const [micOn, setMicOn] = useState(true);
   const [videoOn, setVideoOn] = useState(true);
   const [activeTab, setActiveTab] = useState('python');
+  const [showCertificate, setShowCertificate] = useState(false);
   const [consoleOutput, setConsoleOutput] = useState([
     'Initializing Codeyoung Cloud Sandbox...',
     'Python 3.11 Runtime Ready 🚀',
     'Interactive 1:1 Workspace Connected.'
   ]);
   const [chatMessages, setChatMessages] = useState([
-    { sender: 'Mentor Aarav', time: '10:01 AM', text: "Welcome to Codeyoung! Today we're going to build your very first interactive guessing game!" },
-    { sender: 'Student', time: '10:02 AM', text: "Awesome! I'm ready!" }
+    { sender: 'Mentor Aarav', time: '10:01 AM', text: "Welcome to Codeyoung! Today we're going to build your very first interactive game!" },
+    { sender: 'Student', time: '10:02 AM', text: "Awesome! I'm ready!" },
+    { sender: 'Mentor Aarav', time: '10:03 AM', text: "Let's run the code and see the spaceship blast off!" }
   ]);
   const [chatInput, setChatInput] = useState('');
   const [secondsRemaining, setSecondsRemaining] = useState(45 * 60);
@@ -38,7 +41,7 @@ export default function VirtualClassroom({ bookingId, onBackToBooking }) {
   const [code, setCode] = useState(`# Codeyoung 1:1 Live Trial Class Project
 # Building a Space Adventure Quest!
 
-player_name = "Young Coder"
+player_name = "Young Innovator"
 energy = 100
 level = 1
 
@@ -59,7 +62,7 @@ explore_alien_planet()
     setConsoleOutput(prev => [
       ...prev,
       `>>> Running project at ${new Date().toLocaleTimeString()}...`,
-      '🚀 Welcome to Space Academy, Young Coder!',
+      '🚀 Welcome to Space Academy, Young Innovator!',
       '🛸 Scanning strange planet surface...',
       '✨ Level Up! Current Level: 2 | Energy: 85',
       '🎉 Code execution completed with 0 errors!'
@@ -102,8 +105,18 @@ explore_alien_planet()
           <span style={{ fontFamily: 'var(--font-mono)' }}>{formatTimer(secondsRemaining)}</span>
         </div>
 
-        {/* End Call / Back */}
-        <div style={{ display: 'flex', gap: '8px' }}>
+        {/* Action Controls */}
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <button
+            id="btn-open-certificate"
+            className="btn-primary"
+            style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', color: 'white', padding: '6px 14px', fontSize: '12.5px', border: 'none' }}
+            onClick={() => setShowCertificate(true)}
+          >
+            <Award size={15} />
+            <span>Trial Certificate</span>
+          </button>
+
           <button
             className="btn-secondary"
             style={{ background: '#334155', color: 'white', borderColor: '#475569', padding: '6px 12px', fontSize: '12px' }}
@@ -134,11 +147,11 @@ explore_alien_planet()
                 style={{ width: 68, height: 68, borderRadius: '50%', border: '3px solid #6366f1', margin: '0 auto 8px auto', objectFit: 'cover' }}
               />
               <div style={{ fontSize: '13px', fontWeight: 700 }}>Aarav Sharma</div>
-              <div style={{ fontSize: '11px', color: '#94a3b8' }}>Lead Coding Educator</div>
+              <div style={{ fontSize: '11px', color: '#94a3b8' }}>Lead Coding Educator • IST</div>
             </div>
 
             <div style={{ fontSize: '10.5px', color: '#64748b', textAlign: 'center' }}>
-              1:1 Active Connection
+              1:1 Active Encrypted Connection
             </div>
           </div>
 
@@ -155,12 +168,12 @@ explore_alien_planet()
               <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #818cf8 0%, #c084fc 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', margin: '0 auto 8px auto', color: 'white' }}>
                 🚀
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 700 }}>Student (Young Innovator)</div>
+              <div style={{ fontSize: '13px', fontWeight: 700 }}>Young Innovator</div>
               <div style={{ fontSize: '11px', color: '#94a3b8' }}>Trial Participant</div>
             </div>
 
             <div style={{ fontSize: '10.5px', color: '#64748b', textAlign: 'center' }}>
-              Screen Shared: Live Editor
+              Screen Shared: Live Sandbox
             </div>
           </div>
 
@@ -270,12 +283,12 @@ explore_alien_planet()
                 <CheckCircle2 size={13} />
                 <span>Computational Thinking Puzzle</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#fbbf24' }}>
-                <span style={{ width: 12, height: 12, borderRadius: '50%', border: '2px solid #fbbf24', display: 'inline-block' }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#22c55e' }}>
+                <CheckCircle2 size={13} />
                 <span>Hands-on Project Building</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#94a3b8' }}>
-                <span style={{ width: 12, height: 12, borderRadius: '50%', border: '2px solid #64748b', display: 'inline-block' }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#fbbf24' }}>
+                <span style={{ width: 12, height: 12, borderRadius: '50%', border: '2px solid #fbbf24', display: 'inline-block' }} />
                 <span>Parent Curriculum Roadmap</span>
               </div>
             </div>
@@ -309,6 +322,125 @@ explore_alien_planet()
           </form>
         </div>
       </div>
+
+      {/* Official Certificate Modal */}
+      {showCertificate && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0,0,0,0.8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '16px',
+            maxWidth: '650px',
+            width: '100%',
+            overflow: 'hidden',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+            position: 'relative'
+          }}>
+            {/* Certificate Header Banner */}
+            <div style={{
+              background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)',
+              padding: '24px 28px',
+              color: 'white',
+              textAlign: 'center',
+              position: 'relative'
+            }}>
+              <button
+                onClick={() => setShowCertificate(false)}
+                style={{
+                  position: 'absolute',
+                  top: '16px',
+                  right: '16px',
+                  background: 'rgba(255,255,255,0.2)',
+                  border: 'none',
+                  color: 'white',
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer'
+                }}
+              >
+                <X size={18} />
+              </button>
+
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.15)', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: 700, marginBottom: '8px' }}>
+                <Award size={16} color="#fbbf24" />
+                <span>CODEYOUNG × TALENTISE GLOBAL</span>
+              </div>
+              <h2 style={{ fontSize: '24px', fontWeight: 800, margin: '4px 0', letterSpacing: '0.02em', color: '#fbbf24' }}>
+                Certificate of Achievement
+              </h2>
+              <p style={{ fontSize: '13px', color: '#c7d2fe', margin: 0 }}>
+                1:1 Live Coding Trial Class • Official Verification
+              </p>
+            </div>
+
+            {/* Certificate Body */}
+            <div style={{ padding: '32px 36px', textAlign: 'center', background: '#fafaf9' }}>
+              <p style={{ fontSize: '13px', color: '#78716c', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, margin: '0 0 8px 0' }}>
+                This is proudly presented to
+              </p>
+
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#1c1917', fontFamily: 'Georgia, serif', borderBottom: '2px dashed #d6d3d1', display: 'inline-block', paddingBottom: '6px', minWidth: '280px', margin: '0 auto 16px auto' }}>
+                Young Innovator
+              </div>
+
+              <p style={{ fontSize: '14px', color: '#44403c', lineHeight: 1.6, maxWidth: '500px', margin: '0 auto 24px auto' }}>
+                For outstanding curiosity, computational logic, and successfully building their first interactive computer program in the <strong>Codeyoung 1:1 Live Trial Class</strong>.
+              </p>
+
+              {/* Signatures & Badges */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', alignItems: 'center', paddingTop: '16px', borderTop: '1px solid #e7e5e4' }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#4f46e5' }}>
+                    {bookingId || 'CY-TR-LIVE-DEMO'}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#a8a29e', marginTop: '2px' }}>Verification ID</div>
+                </div>
+
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #fbbf24 0%, #d97706 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 4px auto', color: 'white', boxShadow: '0 4px 6px -1px rgba(217, 119, 6, 0.3)' }}>
+                    <ShieldCheck size={28} />
+                  </div>
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: '#92400e' }}>Verified STEM</div>
+                </div>
+
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#1c1917' }}>
+                    {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#a8a29e', marginTop: '2px' }}>Date Issued</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Certificate Footer Actions */}
+            <div style={{ background: '#f5f5f4', padding: '16px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '12px', color: '#78716c' }}>
+                Accredited by STEM.org & Talentise Global
+              </span>
+              <button
+                className="btn-primary"
+                style={{ padding: '8px 18px', fontSize: '13px' }}
+                onClick={() => window.print()}
+              >
+                <Printer size={15} />
+                <span>Print / Save as PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

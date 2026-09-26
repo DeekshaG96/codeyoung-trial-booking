@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Globe, Sun, Moon, Clock, Calendar as CalendarIcon, 
-  ArrowLeft, ArrowRight, AlertCircle, CheckCircle2, ShieldAlert
+  ArrowLeft, ArrowRight, AlertCircle, CheckCircle2, ShieldAlert, Sparkles, Compass
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { getNextDays } from '../../utils/timezones';
@@ -18,6 +18,14 @@ export default function SlotPickerStep({
   const [slotData, setSlotData] = useState(null);
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
   const [fetchError, setFetchError] = useState(null);
+  const [periodFilter, setPeriodFilter] = useState('ALL');
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Live clock tick
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Generate next 10 days
   const availableDays = getNextDays(10, formData.timezone);
@@ -97,10 +105,25 @@ export default function SlotPickerStep({
 
   const parentTzMeta = slotData?.parentTimezone;
 
+  // Format live clocks
+  const formatLiveTime = (tzId) => {
+    try {
+      return currentTime.toLocaleTimeString('en-US', {
+        timeZone: tzId,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+    } catch {
+      return currentTime.toLocaleTimeString();
+    }
+  };
+
   return (
     <div id="step-slot-picker-container">
       {/* Title */}
-      <div style={{ marginBottom: '24px' }}>
+      <div style={{ marginBottom: '20px' }}>
         <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '6px' }}>
           Step 2: Choose your trial class time slot ⏰
         </h2>
@@ -152,8 +175,56 @@ export default function SlotPickerStep({
         )}
       </div>
 
+      {/* Live Dual-Timezone Synchronizer Strip */}
+      <div style={{
+        background: '#ffffff',
+        border: '1.5px solid var(--border-subtle)',
+        borderRadius: 'var(--radius-lg)',
+        padding: '14px 20px',
+        marginBottom: '24px',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gap: '16px',
+        alignItems: 'center'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0284c7' }}>
+            <Clock size={20} />
+          </div>
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+              Your Live Clock ({parentTzMeta?.offsetNameShort || 'Local'})
+            </div>
+            <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+              {formatLiveTime(formData.timezone)}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#ecfdf5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#10b981' }}>
+            <Compass size={20} />
+          </div>
+          <div>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+              Mentor Live Clock (IST - Bangalore)
+            </div>
+            <div style={{ fontSize: '18px', fontWeight: 800, color: '#047857', fontFamily: 'var(--font-mono)' }}>
+              {formatLiveTime('Asia/Kolkata')}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', background: '#f8fafc', padding: '8px 12px', borderRadius: 'var(--radius-md)', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontWeight: 700, color: 'var(--primary)', marginBottom: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Sparkles size={13} /> Luxon Timezone Precision
+          </div>
+          Slot boundaries are computed in UTC and converted dynamically to your exact location with active DST compensation.
+        </div>
+      </div>
+
       {/* Date Chips Carousel */}
-      <div style={{ marginBottom: '10px' }}>
+      <div style={{ marginBottom: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
           <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-secondary)' }}>
             Select Preferred Date
@@ -184,6 +255,68 @@ export default function SlotPickerStep({
           })}
         </div>
       </div>
+
+      {/* Period Filter Tabs (Morning / Afternoon / Evening) */}
+      {slotData && slotData.availableSlotsCount > 0 && (
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+          <button
+            className="btn-secondary"
+            style={{
+              padding: '6px 14px',
+              fontSize: '12.5px',
+              background: periodFilter === 'ALL' ? '#eef2ff' : 'white',
+              borderColor: periodFilter === 'ALL' ? 'var(--primary)' : 'var(--border-subtle)',
+              color: periodFilter === 'ALL' ? 'var(--primary)' : 'var(--text-secondary)',
+              fontWeight: 700
+            }}
+            onClick={() => setPeriodFilter('ALL')}
+          >
+            All Slots ({slotData?.slots?.length || 0})
+          </button>
+          <button
+            className="btn-secondary"
+            style={{
+              padding: '6px 14px',
+              fontSize: '12.5px',
+              background: periodFilter === 'MORNING' ? '#fffbeb' : 'white',
+              borderColor: periodFilter === 'MORNING' ? '#f59e0b' : 'var(--border-subtle)',
+              color: periodFilter === 'MORNING' ? '#b45309' : 'var(--text-secondary)',
+              fontWeight: 700
+            }}
+            onClick={() => setPeriodFilter('MORNING')}
+          >
+            🌅 Morning ({morningSlots.length})
+          </button>
+          <button
+            className="btn-secondary"
+            style={{
+              padding: '6px 14px',
+              fontSize: '12.5px',
+              background: periodFilter === 'AFTERNOON' ? '#fff7ed' : 'white',
+              borderColor: periodFilter === 'AFTERNOON' ? '#ea580c' : 'var(--border-subtle)',
+              color: periodFilter === 'AFTERNOON' ? '#c2410c' : 'var(--text-secondary)',
+              fontWeight: 700
+            }}
+            onClick={() => setPeriodFilter('AFTERNOON')}
+          >
+            ☀️ Afternoon ({afternoonSlots.length})
+          </button>
+          <button
+            className="btn-secondary"
+            style={{
+              padding: '6px 14px',
+              fontSize: '12.5px',
+              background: periodFilter === 'EVENING' ? '#f5f3ff' : 'white',
+              borderColor: periodFilter === 'EVENING' ? '#8b5cf6' : 'var(--border-subtle)',
+              color: periodFilter === 'EVENING' ? '#6d28d9' : 'var(--text-secondary)',
+              fontWeight: 700
+            }}
+            onClick={() => setPeriodFilter('EVENING')}
+          >
+            🌙 Evening ({eveningSlots.length})
+          </button>
+        </div>
+      )}
 
       {/* Slots Section */}
       {isLoadingSlots ? (
@@ -236,10 +369,10 @@ export default function SlotPickerStep({
           </div>
         </div>
       ) : (
-        /* Render Slots Grid */
+        /* Render Slots Grid filtered by period */
         <div>
           {/* Morning Slots */}
-          {morningSlots.length > 0 && (
+          {(periodFilter === 'ALL' || periodFilter === 'MORNING') && morningSlots.length > 0 && (
             <div className="slots-group">
               <div className="slots-group-header">
                 <Sun size={18} color="#f59e0b" />
@@ -252,7 +385,7 @@ export default function SlotPickerStep({
           )}
 
           {/* Afternoon Slots */}
-          {afternoonSlots.length > 0 && (
+          {(periodFilter === 'ALL' || periodFilter === 'AFTERNOON') && afternoonSlots.length > 0 && (
             <div className="slots-group">
               <div className="slots-group-header">
                 <Sun size={18} color="#ea580c" />
@@ -265,7 +398,7 @@ export default function SlotPickerStep({
           )}
 
           {/* Evening Slots */}
-          {eveningSlots.length > 0 && (
+          {(periodFilter === 'ALL' || periodFilter === 'EVENING') && eveningSlots.length > 0 && (
             <div className="slots-group">
               <div className="slots-group-header">
                 <Moon size={18} color="#6366f1" />

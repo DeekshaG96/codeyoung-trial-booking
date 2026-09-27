@@ -72,6 +72,12 @@ export default function TelemetryDashboard({ onOpenStripeCheckout }) {
 
         {/* Tech Stack Badges Row */}
         <div style={{ display: 'flex', gap: '8px', marginTop: '20px', flexWrap: 'wrap' }}>
+          <span style={{ background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(99, 102, 241, 0.25) 100%)', border: '1px solid rgba(56, 189, 248, 0.5)', padding: '5px 12px', borderRadius: '6px', fontSize: '11.5px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px', color: '#38bdf8' }}>
+            🧠 Gemini 2.5 Flash Live
+          </span>
+          <span style={{ background: 'linear-gradient(135deg, rgba(244, 63, 94, 0.25) 0%, rgba(217, 70, 239, 0.25) 100%)', border: '1px solid rgba(244, 63, 94, 0.5)', padding: '5px 12px', borderRadius: '6px', fontSize: '11.5px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px', color: '#fb7185' }}>
+            📊 Kaggle EdTech Analytics (200k Rows)
+          </span>
           <span style={{ background: 'rgba(255, 255, 255, 0.12)', padding: '5px 10px', borderRadius: '6px', fontSize: '11.5px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
             🦔 PostHog Analytics
           </span>
@@ -173,7 +179,16 @@ export default function TelemetryDashboard({ onOpenStripeCheckout }) {
           onClick={() => setActiveTab('ai')}
         >
           <Zap size={14} />
-          <span>Claude & Perplexity AI</span>
+          <span>Gemini & Claude AI</span>
+        </button>
+
+        <button
+          className={`btn-secondary ${activeTab === 'edtech' ? 'active' : ''}`}
+          style={{ padding: '8px 14px', fontSize: '12.5px', background: activeTab === 'edtech' ? '#fdf2f8' : 'white', borderColor: activeTab === 'edtech' ? '#db2777' : 'var(--border-subtle)', color: activeTab === 'edtech' ? '#be185d' : 'var(--text-secondary)' }}
+          onClick={() => setActiveTab('edtech')}
+        >
+          <BarChart3 size={14} />
+          <span>EdTech Analytics (Kaggle)</span>
         </button>
       </div>
 
@@ -536,16 +551,16 @@ export default function TelemetryDashboard({ onOpenStripeCheckout }) {
         </div>
       )}
 
-      {/* Tab 7: Claude & Perplexity AI Engine */}
+      {/* Tab 7: Claude, Gemini & Perplexity AI Engine */}
       {activeTab === 'ai' && (
         <div style={{ background: 'white', borderRadius: '16px', padding: '24px 28px', border: '1.5px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
             <div>
               <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '0 0 4px 0', color: 'var(--text-primary)' }}>
-                🤖 Claude 3.7 & Perplexity AI Curriculum Engine
+                🧠 Google Gemini 2.5 Flash, Claude & Perplexity AI Engine
               </h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '13px', margin: 0 }}>
-                Combining generative reasoning for real-time coding mentoring with deep pedagogical research for individualized learning plans.
+                Combining live multimodal LLMs with generative coding mentors and pedagogical research for individualized STEM learning.
               </p>
             </div>
             <span style={{ fontSize: '12px', background: '#e0f2fe', color: '#0369a1', padding: '4px 10px', borderRadius: '12px', fontWeight: 700 }}>
@@ -553,25 +568,45 @@ export default function TelemetryDashboard({ onOpenStripeCheckout }) {
             </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+            {/* Gemini 2.5 Flash Card */}
+            <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '14px', border: '1.5px solid #38bdf8' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+                <span style={{ fontSize: '20px' }}>🧠</span>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '15px', color: '#0284c7' }}>Gemini 2.5 Flash (Koda AI)</div>
+                  <div style={{ fontSize: '11.5px', color: '#0369a1' }}>Live 1:1 Virtual Classroom Mentor</div>
+                </div>
+              </div>
+              <p style={{ fontSize: '12.5px', color: '#334155', lineHeight: 1.6, margin: 0 }}>
+                Powers real-time interactive responses in the Virtual Classroom. Answers student questions on SQL, Python, and algorithms, generates custom coding missions, and explains code in kid-friendly language with formatted markdown.
+              </p>
+              <div style={{ marginTop: '12px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                <span style={{ background: '#e0f2fe', color: '#0284c7', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>Model: gemini-2.5-flash</span>
+                <span style={{ background: '#e0f2fe', color: '#0284c7', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>Fallback: &lt;5ms Core</span>
+                <span style={{ background: '#ecfdf5', color: '#059669', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>Status: Online</span>
+              </div>
+            </div>
+
+            {/* Claude 3.7 */}
             <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '14px', border: '1.5px solid #bae6fd' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                 <span style={{ fontSize: '20px' }}>🤖</span>
                 <div>
-                  <div style={{ fontWeight: 800, fontSize: '15px', color: '#0c4a6e' }}>Claude 3.7 Sonnet (Pair Programmer)</div>
-                  <div style={{ fontSize: '11.5px', color: '#0284c7' }}>Integrated into Live Virtual Classroom</div>
+                  <div style={{ fontWeight: 800, fontSize: '15px', color: '#0c4a6e' }}>Claude 3.7 Sonnet (Code Analysis)</div>
+                  <div style={{ fontSize: '11.5px', color: '#0284c7' }}>AST Syntax & Bug Diagnostics</div>
                 </div>
               </div>
               <p style={{ fontSize: '12.5px', color: '#334155', lineHeight: 1.6, margin: 0 }}>
-                Acts as an interactive co-pilot during the 45-minute trial session. Analyzes student Python syntax, suggests Scratch logic blocks, and assists mentors with adaptive problem challenges based on the student's learning speed.
+                Analyzes student Python syntax, checks indentation, validates parentheses balance, and assists mentors with adaptive problem challenges based on student skill levels.
               </p>
               <div style={{ marginTop: '12px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                <span style={{ background: '#e0f2fe', color: '#0369a1', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>Python Linting</span>
-                <span style={{ background: '#e0f2fe', color: '#0369a1', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>Scratch Logic Explainer</span>
-                <span style={{ background: '#e0f2fe', color: '#0369a1', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>Praise & Encouragement AI</span>
+                <span style={{ background: '#e0f2fe', color: '#0369a1', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>Python AST Linting</span>
+                <span style={{ background: '#e0f2fe', color: '#0369a1', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>Autofix Missing Colons</span>
               </div>
             </div>
 
+            {/* Perplexity */}
             <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '14px', border: '1.5px solid #ddd6fe' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                 <span style={{ fontSize: '20px' }}>🔍</span>
@@ -581,12 +616,130 @@ export default function TelemetryDashboard({ onOpenStripeCheckout }) {
                 </div>
               </div>
               <p style={{ fontSize: '12.5px', color: '#334155', lineHeight: 1.6, margin: 0 }}>
-                Researches age-specific computer science pedagogical standards (CSTA, UK National Curriculum). Powers the trial wizard's smart discipline matching, ensuring a 7-year-old receives visual block robotics while a 14-year-old gets AI algorithmic models.
+                Researches age-specific computer science pedagogical standards (CSTA, UK National Curriculum). Powers the trial wizard's smart discipline matching.
               </p>
               <div style={{ marginTop: '12px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                 <span style={{ background: '#ede9fe', color: '#6d28d9', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>CSTA K-12 Aligned</span>
-                <span style={{ background: '#ede9fe', color: '#6d28d9', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>Adaptive Skill Calibrator</span>
-                <span style={{ background: '#ede9fe', color: '#6d28d9', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>Dynamic Project Matcher</span>
+                <span style={{ background: '#ede9fe', color: '#6d28d9', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>Age-Adaptive Pathways</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab 8: Kaggle EdTech Learning Analytics */}
+      {activeTab === 'edtech' && (
+        <div style={{ background: 'white', borderRadius: '16px', padding: '24px 28px', border: '1.5px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#fdf2f8', border: '1px solid #fbcfe8', color: '#db2777', padding: '3px 10px', borderRadius: '12px', fontSize: '11px', fontWeight: 800, marginBottom: '6px' }}>
+                <span>KAGGLE LEARNING ANALYTICS BENCHMARK</span>
+              </div>
+              <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '0 0 4px 0', color: 'var(--text-primary)' }}>
+                📊 Educational Technology Learning Analytics Dataset
+              </h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '13px', margin: 0 }}>
+                Empirical dataset (birendeepsingh/educational-technology-learning-analytics-dataset) informing Codeyoung trial matching algorithms.
+              </p>
+            </div>
+            <span style={{ fontSize: '12px', background: '#fdf2f8', color: '#be185d', padding: '4px 10px', borderRadius: '12px', fontWeight: 700 }}>
+              200,000 Verified Records
+            </span>
+          </div>
+
+          {/* 3 KPI Summary Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+            <div style={{ background: '#fdf2f8', padding: '16px 20px', borderRadius: '12px', border: '1px solid #fbcfe8' }}>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: '#be185d', textTransform: 'uppercase' }}>Courses Catalog</div>
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#9d174d', marginTop: '4px' }}>150</div>
+              <div style={{ fontSize: '12px', color: '#be185d', marginTop: '4px' }}>Across 12 Subject Areas • Avg Rating 4.24/5.0</div>
+            </div>
+
+            <div style={{ background: '#eff6ff', padding: '16px 20px', borderRadius: '12px', border: '1px solid #bfdbfe' }}>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: '#1d4ed8', textTransform: 'uppercase' }}>Student Cohorts</div>
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#1e40af', marginTop: '4px' }}>8,000</div>
+              <div style={{ fontSize: '12px', color: '#1d4ed8', marginTop: '4px' }}>Age 16–64 • 4 Distinct Learning Styles</div>
+            </div>
+
+            <div style={{ background: '#ecfdf5', padding: '16px 20px', borderRadius: '12px', border: '1px solid #a7f3d0' }}>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: '#047857', textTransform: 'uppercase' }}>Learning Interactions</div>
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#065f46', marginTop: '4px' }}>200,000</div>
+              <div style={{ fontSize: '12px', color: '#047857', marginTop: '4px' }}>81.1% Avg Completion • 12.0 min Avg Session</div>
+            </div>
+          </div>
+
+          {/* Breakdown Distributions */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+            {/* Learning Style Distribution */}
+            <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontWeight: 800, color: '#1e293b', marginBottom: '14px', fontSize: '14px' }}>
+                🧠 Student Learning Style Distribution
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12.5px' }}>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <span style={{ fontWeight: 600 }}>Auditory Learners</span>
+                    <span style={{ fontWeight: 800 }}>2,023 (25.3%)</span>
+                  </div>
+                  <div style={{ width: '100%', height: '8px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ width: '25.3%', height: '100%', background: '#6366f1' }} />
+                  </div>
+                </div>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <span style={{ fontWeight: 600 }}>Kinesthetic (Hands-on Coding)</span>
+                    <span style={{ fontWeight: 800 }}>2,011 (25.1%)</span>
+                  </div>
+                  <div style={{ width: '100%', height: '8px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ width: '25.1%', height: '100%', background: '#10b981' }} />
+                  </div>
+                </div>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <span style={{ fontWeight: 600 }}>Reading / Writing</span>
+                    <span style={{ fontWeight: 800 }}>2,004 (25.1%)</span>
+                  </div>
+                  <div style={{ width: '100%', height: '8px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ width: '25.1%', height: '100%', background: '#f59e0b' }} />
+                  </div>
+                </div>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <span style={{ fontWeight: 600 }}>Visual Learners</span>
+                    <span style={{ fontWeight: 800 }}>1,962 (24.5%)</span>
+                  </div>
+                  <div style={{ width: '100%', height: '8px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ width: '24.5%', height: '100%', background: '#ec4899' }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Device & Activity Breakdown */}
+            <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontWeight: 800, color: '#1e293b', marginBottom: '14px', fontSize: '14px' }}>
+                📱 Devices & Interaction Activities
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', fontSize: '12.5px', marginBottom: '16px' }}>
+                <div style={{ background: 'white', padding: '10px 12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '11px', fontWeight: 700 }}>TOP DEVICE</div>
+                  <div style={{ fontWeight: 800, color: 'var(--text-primary)', marginTop: '2px' }}>Mobile (49.7%)</div>
+                </div>
+                <div style={{ background: 'white', padding: '10px 12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '11px', fontWeight: 700 }}>DESKTOP LAB</div>
+                  <div style={{ fontWeight: 800, color: 'var(--text-primary)', marginTop: '2px' }}>Desktop (40.7%)</div>
+                </div>
+                <div style={{ background: 'white', padding: '10px 12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '11px', fontWeight: 700 }}>MOTIVATION</div>
+                  <div style={{ fontWeight: 800, color: '#059669', marginTop: '2px' }}>80.1% Med/High</div>
+                </div>
+                <div style={{ background: 'white', padding: '10px 12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '11px', fontWeight: 700 }}>AVG SCORE</div>
+                  <div style={{ fontWeight: 800, color: 'var(--primary)', marginTop: '2px' }}>80.0% Scored</div>
+                </div>
+              </div>
+              <div style={{ fontSize: '12px', color: '#475569', lineHeight: 1.5 }}>
+                💡 <strong>Application in Codeyoung:</strong> Trial class curriculum calibrator maps visual/kinesthetic learners to Scratch Game Physics, while reading/analytical learners are mapped to Python 3.11 algorithms and SQL.
               </div>
             </div>
           </div>

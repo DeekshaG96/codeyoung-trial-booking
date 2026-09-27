@@ -1,5 +1,6 @@
-import React from 'react';
-import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, BarChart3, UserCheck, Shield } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, BarChart3, UserCheck, Shield, LogIn, LogOut, ChevronDown, User as UserIcon } from 'lucide-react';
+import { useAuth } from '../services/authContext';
 
 export default function Navbar({ 
   activeTab, 
@@ -9,7 +10,21 @@ export default function Navbar({
   userRole,
   onSwitchRole
 }) {
+  const { user, openAuthModal, logout } = useAuth();
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
   const isParent = userRole === 'parent';
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header className="header-nav" id="main-navigation-header">
@@ -97,7 +112,152 @@ export default function Navbar({
         </nav>
 
         {/* Header Right Actions */}
-        <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+        <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0, position: 'relative' }}>
+          {/* Sign In / User Account Action */}
+          {!user ? (
+            <button
+              id="btn-nav-signin"
+              className="btn-primary"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 14px',
+                fontSize: '12px',
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)',
+                color: '#ffffff',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(79, 70, 229, 0.25)'
+              }}
+              onClick={() => openAuthModal('signin')}
+              title="Sign in with Email or Demo Account"
+            >
+              <LogIn size={13} />
+              <span>Sign In</span>
+            </button>
+          ) : (
+            <div ref={userMenuRef} style={{ position: 'relative' }}>
+              <button
+                id="btn-nav-user-profile"
+                className="btn-secondary"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '7px',
+                  padding: '4px 10px',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '20px',
+                  cursor: 'pointer'
+                }}
+                onClick={() => setIsUserMenuOpen(prev => !prev)}
+                title={`Signed in as ${user.name} (${user.role})`}
+              >
+                {user.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={user.name}
+                    style={{ width: '22px', height: '22px', borderRadius: '50%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#4f46e5', color: '#fff', fontSize: '11px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {user.name?.charAt(0) || 'U'}
+                  </div>
+                )}
+                <span style={{ maxWidth: '110px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} className="hide-on-mobile">
+                  {user.name}
+                </span>
+                <span style={{ fontSize: '9px', fontWeight: 800, padding: '1px 5px', borderRadius: '4px', background: user.role === 'mentor' ? '#f3e8ff' : '#dbeafe', color: user.role === 'mentor' ? '#7e22ce' : '#1d4ed8', textTransform: 'uppercase' }}>
+                  {user.role}
+                </span>
+                <ChevronDown size={12} color="#64748b" />
+              </button>
+
+              {/* User Dropdown Menu */}
+              {isUserMenuOpen && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 6px)',
+                    right: 0,
+                    width: '230px',
+                    background: '#ffffff',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                    zIndex: 1000,
+                    padding: '8px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px'
+                  }}
+                >
+                  <div style={{ padding: '8px 10px', borderBottom: '1px solid #f1f5f9' }}>
+                    <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0f172a' }}>{user.name}</div>
+                    <div style={{ fontSize: '11px', color: '#64748b', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user.email}</div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      openAuthModal('signin');
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '7px 10px',
+                      fontSize: '12px',
+                      color: '#334155',
+                      background: 'transparent',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      width: '100%'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#f8fafc'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <LogIn size={13} color="#4f46e5" />
+                    <span>Switch Account / Sign In</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      logout();
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '7px 10px',
+                      fontSize: '12px',
+                      color: '#dc2626',
+                      background: 'transparent',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      width: '100%'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#fef2f2'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <LogOut size={13} color="#dc2626" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Role Toggle Pill (Standard User Friendly) */}
           <button
             id="btn-role-switcher"

@@ -58,8 +58,18 @@ export default function MentorOverview({ onEnterClassroom }) {
     return true;
   });
 
+  const formattedIndianDate = (() => {
+    if (!selectedDate) return '';
+    const parts = selectedDate.split('-');
+    if (parts.length === 3) {
+      const [y, m, d] = parts;
+      return `${d} / ${m} / ${y}`;
+    }
+    return selectedDate;
+  })();
+
   return (
-    <div id="mentor-dashboard-container">
+    <div id="mentor-dashboard-container" style={{ paddingBottom: '40px' }}>
       {/* Top Banner & Date Picker */}
       <div style={{ background: 'white', border: '1.5px solid var(--border-subtle)', borderRadius: 'var(--radius-xl)', padding: '24px 28px', marginBottom: '24px', boxShadow: 'var(--shadow-md)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -74,13 +84,43 @@ export default function MentorOverview({ onEnterClassroom }) {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f8fafc', padding: '6px 14px', borderRadius: 'var(--radius-md)', border: '1.5px solid var(--border-subtle)' }}>
+            <div 
+              id="ist-date-picker-badge"
+              style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '10px', 
+                background: '#f8fafc', 
+                padding: '7px 14px', 
+                borderRadius: 'var(--radius-md)', 
+                border: '1.5px solid var(--border-subtle)',
+                position: 'relative',
+                cursor: 'pointer'
+              }}
+              title="Click to select date (Standard Indian Format: DD / MM / YYYY)"
+            >
               <Calendar size={16} color="var(--primary)" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '13.5px', fontFamily: 'var(--font-mono)' }}>
+                  {formattedIndianDate}
+                </span>
+                <span style={{ fontSize: '10.5px', fontWeight: 800, background: '#e0e7ff', color: '#4338ca', padding: '2px 8px', borderRadius: '4px', border: '1px solid #c7d2fe' }}>
+                  IST (DD / MM / YYYY)
+                </span>
+              </div>
               <input
                 type="date"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                style={{ border: 'none', background: 'transparent', fontWeight: 700, color: 'var(--text-primary)', outline: 'none', cursor: 'pointer' }}
+                style={{ 
+                  position: 'absolute', 
+                  top: 0, 
+                  left: 0, 
+                  width: '100%', 
+                  height: '100%', 
+                  opacity: 0, 
+                  cursor: 'pointer' 
+                }}
               />
             </div>
 

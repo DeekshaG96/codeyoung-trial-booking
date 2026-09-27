@@ -8,43 +8,118 @@ export default function QuickEvaluatorBar({
   onOpenStripeCheckout
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [dockPosition, setDockPosition] = useState('bottom-center'); // 'bottom-center' | 'bottom-left' | 'bottom-right'
+  const [isMinimized, setIsMinimized] = useState(false);
 
-  return (
-    <div style={{
+  const cyclePosition = (e) => {
+    e.stopPropagation();
+    if (dockPosition === 'bottom-center') setDockPosition('bottom-left');
+    else if (dockPosition === 'bottom-left') setDockPosition('bottom-right');
+    else setDockPosition('bottom-center');
+  };
+
+  const getContainerStyle = () => {
+    const base = {
       position: 'fixed',
       bottom: '20px',
-      right: '20px',
       zIndex: 90,
-      fontFamily: 'var(--font-body)'
-    }}>
-      {/* Collapsed Pill Button */}
-      {!isOpen ? (
+      fontFamily: 'var(--font-body)',
+      transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+    };
+
+    if (dockPosition === 'bottom-center') {
+      return { ...base, left: '50%', transform: 'translateX(-50%)', right: 'auto' };
+    }
+    if (dockPosition === 'bottom-left') {
+      return { ...base, left: '24px', right: 'auto', transform: 'none' };
+    }
+    return { ...base, right: '24px', left: 'auto', transform: 'none' };
+  };
+
+  return (
+    <div style={getContainerStyle()} id="quick-evaluator-dock-container">
+      {/* Minimized Tiny Floating Trigger */}
+      {isMinimized ? (
         <button
-          id="btn-open-evaluator-dock"
-          onClick={() => setIsOpen(true)}
+          id="btn-unminimize-evaluator-dock"
+          onClick={() => setIsMinimized(false)}
+          title="Restore Evaluator Presets Dock"
           style={{
             background: 'linear-gradient(135deg, #1e1b4b 0%, #4f46e5 100%)',
             color: 'white',
             border: '1.5px solid #818cf8',
             borderRadius: 'var(--radius-pill)',
-            padding: '10px 18px',
-            fontSize: '13px',
+            padding: '8px 14px',
+            fontSize: '12px',
             fontWeight: 800,
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            boxShadow: '0 10px 25px -5px rgba(79, 70, 229, 0.5)',
-            cursor: 'pointer',
-            transition: 'transform 0.2s ease',
-            animation: 'pulseGlow 2.5s infinite'
+            gap: '6px',
+            boxShadow: '0 8px 20px rgba(79, 70, 229, 0.4)',
+            cursor: 'pointer'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
         >
-          <Sparkles size={16} color="#fbbf24" />
-          <span>⚡ Evaluator Quick Presets</span>
-          <ChevronUp size={16} />
+          <Zap size={14} color="#fbbf24" />
+          <span>⚡ Presets Dock</span>
         </button>
+      ) : !isOpen ? (
+        /* Collapsed Pill Button */
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'rgba(30, 27, 75, 0.95)', padding: '3px 4px', borderRadius: 'var(--radius-pill)', boxShadow: '0 10px 25px -5px rgba(79, 70, 229, 0.5)', border: '1.5px solid #818cf8', backdropFilter: 'blur(8px)' }}>
+          <button
+            id="btn-open-evaluator-dock"
+            onClick={() => setIsOpen(true)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'white',
+              padding: '6px 14px',
+              fontSize: '13px',
+              fontWeight: 800,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer'
+            }}
+          >
+            <Sparkles size={15} color="#fbbf24" />
+            <span>⚡ Evaluator Quick Presets</span>
+            <ChevronUp size={15} />
+          </button>
+
+          {/* Position cycle shortcut */}
+          <button
+            onClick={cyclePosition}
+            title={`Dock Position: ${dockPosition} (Click to move)`}
+            style={{
+              background: 'rgba(255,255,255,0.15)',
+              border: 'none',
+              borderRadius: 'var(--radius-pill)',
+              color: '#c7d2fe',
+              padding: '4px 8px',
+              fontSize: '11px',
+              cursor: 'pointer',
+              fontWeight: 700
+            }}
+          >
+            {dockPosition === 'bottom-center' ? '⇄ Center' : (dockPosition === 'bottom-left' ? '⇄ Left' : '⇄ Right')}
+          </button>
+
+          {/* Minimize button */}
+          <button
+            onClick={() => setIsMinimized(true)}
+            title="Minimize dock to avoid obscuring page content"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#94a3b8',
+              padding: '4px 6px',
+              fontSize: '11px',
+              cursor: 'pointer'
+            }}
+          >
+            ✕
+          </button>
+        </div>
       ) : (
         /* Expanded Floating Card */
         <div style={{
@@ -53,7 +128,7 @@ export default function QuickEvaluatorBar({
           border: '1.5px solid #c7d2fe',
           boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.25)',
           padding: '16px 18px',
-          width: '320px',
+          width: '330px',
           display: 'flex',
           flexDirection: 'column',
           gap: '10px'
@@ -64,12 +139,23 @@ export default function QuickEvaluatorBar({
               <Zap size={15} color="#4f46e5" />
               <span>Evaluator Demo Shortcuts</span>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{ background: 'transparent', border: 'none', color: '#64748b', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-            >
-              <ChevronDown size={18} />
-            </button>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <button
+                onClick={cyclePosition}
+                title="Change dock position (Left / Center / Right)"
+                style={{ background: '#f1f5f9', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '10.5px', padding: '2px 6px', color: '#475569', cursor: 'pointer', fontWeight: 700 }}
+              >
+                {dockPosition === 'bottom-center' ? 'Center' : (dockPosition === 'bottom-left' ? 'Left' : 'Right')}
+              </button>
+              <button
+                onClick={() => setIsOpen(false)}
+                style={{ background: 'transparent', border: 'none', color: '#64748b', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                title="Collapse dock"
+              >
+                <ChevronDown size={18} />
+              </button>
+            </div>
           </div>
 
           <div style={{ fontSize: '11.5px', color: '#64748b' }}>

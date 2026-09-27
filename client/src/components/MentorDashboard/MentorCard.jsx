@@ -15,6 +15,10 @@ export default function MentorCard({ mentor, onOpenSchedule }) {
             src={mentor.avatar}
             alt={mentor.name}
             className="mentor-avatar"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=250&q=80';
+            }}
           />
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -51,7 +55,11 @@ export default function MentorCard({ mentor, onOpenSchedule }) {
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
-            <span>{isCapReached ? '🔒 Daily Quota Reached' : `✓ ${maxDemos - bookedCount} slot available`}</span>
+            <span>
+              {isCapReached 
+                ? '🔒 Daily Quota Reached' 
+                : `✓ ${maxDemos - bookedCount} slot${(maxDemos - bookedCount) === 1 ? '' : 's'} available`}
+            </span>
             <span>{mentor.timezone}</span>
           </div>
         </div>

@@ -125,7 +125,7 @@ export const SEED_MENTORS = [
   {
     id: 'mentor-8',
     name: 'Kavya Patel',
-    avatar: 'https://images.unsplash.com/photo-1534751516642-a171dd825a07?auto=format&fit=crop&w=250&q=80',
+    avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=250&q=80',
     title: 'Senior Python & Web Specialist',
     bio: 'Double degree in CS & Education. Guides kids through real-world projects from zero to functional web apps.',
     specialties: ['Python', 'Web Development', 'JavaScript', 'Scratch'],

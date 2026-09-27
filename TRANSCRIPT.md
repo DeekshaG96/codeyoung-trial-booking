@@ -173,5 +173,5 @@ All technical and product criteria specified by Codeyoung and Talentise Global h
 4. **Working Live Class Link:** Generates an interactive dummy link opening the live Coding Classroom with Python & Scratch sandboxes.
 5. **Strict Mentor 2-Demo/Day Cap:** Enforced across shift boundaries with automated 20-parent stress testing.
 6. **Empathetic Error Handling:** Clear alternative slots and priority waitlist when slots are fully booked.
-7. **Clean Monorepo Architecture:** Node/Express backend, React/Vite frontend, 23/23 passing Vitest tests, and deployed to live production.
+7. **Clean Monorepo Architecture:** Node/Express backend, React/Vite frontend, 28/28 passing Vitest tests (covering DST, capacity, load-balancing, and code sandbox execution), and deployed to live production.
 

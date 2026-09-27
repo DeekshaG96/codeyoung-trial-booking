@@ -4,7 +4,7 @@
 ### The Global 1:1 Coding & STEM Mentorship Platform
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Firebase%20%7C%20Vercel-10b981?style=for-the-badge&logo=firebase)](https://kodaverse-863ce.web.app/)
-[![Vitest Passing](https://img.shields.io/badge/Vitest-23%2F23%20Passing-success?style=for-the-badge&logo=vitest)](https://github.com/DeekshaG96/codeyoung-trial-booking)
+[![Vitest Passing](https://img.shields.io/badge/Vitest-28%2F28%20Passing-success?style=for-the-badge&logo=vitest)](https://github.com/DeekshaG96/codeyoung-trial-booking)
 [![Daily Capacity](https://img.shields.io/badge/Daily%20Capacity-20%20Demos%2FDay%20Strict-blueviolet?style=for-the-badge)](https://github.com/DeekshaG96/codeyoung-trial-booking)
 [![Timezone Precision](https://img.shields.io/badge/Timezone%20Engine-Luxon%20IANA%20DST-blue?style=for-the-badge)](https://github.com/DeekshaG96/codeyoung-trial-booking)
 [![Candidate](https://img.shields.io/badge/Candidate-Deeksha%20G%20(SIT%20Mangaluru)-orange?style=for-the-badge)](https://github.com/DeekshaG96)
@@ -128,7 +128,7 @@ Our scheduler normalizes sessions occurring between `00:00` and `07:00 IST` to t
 
 ---
 
-## 🧪 Automated Testing Suite (23/23 Vitest Tests Passing)
+## 🧪 Automated Testing Suite (28/28 Vitest Tests Passing)
 
 Run tests locally with:
 ```bash
@@ -139,6 +139,13 @@ npm test
 
 ```
  RUN  v2.1.9 server/src/tests
+
+ ✓ src/tests/aiAndCodeSandbox.test.js (5 tests)
+   ✓ correctly executes Python variables and f-string printing
+   ✓ detects syntax error when colon is missing after function or loop
+   ✓ autofixes missing colons in Python statements
+   ✓ autofixes single = to == in conditionals
+   ✓ detects and balances unclosed parentheses
 
  ✓ src/tests/dst.test.js (8 tests)
    ✓ US Spring-Forward (March 8, 2026) is a 23-hour day in UTC
@@ -171,8 +178,8 @@ npm test
    ✓ Formats RFC 5545 .ics iCalendar export with correct UTC timestamps
    ✓ Lists all supported timezones with valid IANA identifiers
 
-Test Files  4 passed (4)
-     Tests  23 passed (23)
+Test Files  5 passed (5)
+     Tests  28 passed (28)
 ```
 
 ---

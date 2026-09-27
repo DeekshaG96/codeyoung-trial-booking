@@ -2,16 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Video, Mic, MicOff, VideoOff, Play, Send, CheckCircle2, 
   Terminal, Sparkles, MessageSquare, PhoneOff, Share2, Layers, Award,
-  Printer, X, Star, ShieldCheck, Download, Copy, RefreshCw, 
-  HelpCircle, Bug, Lightbulb, Code2, Volume2, Flag, Square,
-  Check, ChevronRight, Zap, BookOpen, Wand2, Globe, Key, LogIn
+  Printer, X, ShieldCheck, Download, Copy, RefreshCw, 
+  Bug, Lightbulb, Flag, Square,
+  Check, Zap, Wand2, LogIn
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { pythonRunner } from '../../services/pythonRunner';
 import { soundEffects } from '../../utils/audioEffects';
 import { useAuth } from '../../services/authContext';
-import { generateWithGemini } from '../../services/firebase';
-import { queryKnowledgeCore, getStoredGeminiKey, setStoredGeminiKey } from '../../services/kodaAiEngine';
+import { queryKnowledgeCore } from '../../services/kodaAiEngine';
 
 // Helper to render formatted Markdown in Koda AI chat (bolds, code badges, lists, headings)
 function renderInlineMarkdown(str) {
@@ -61,7 +60,7 @@ function renderKodaMessage(content) {
 
     // Bullet points
     if (trimmed.startsWith('•') || trimmed.startsWith('-') || /^\d+\.\s/.test(trimmed)) {
-      const bulletText = trimmed.replace(/^[•\-]\s*/, '').replace(/^\d+\.\s*/, '');
+      const bulletText = trimmed.replace(/^[•-]\s*/, '').replace(/^\d+\.\s*/, '');
       return (
         <div key={idx} style={{ paddingLeft: '8px', marginBottom: '3px', display: 'flex', gap: '6px' }}>
           <span style={{ color: '#38bdf8', flexShrink: 0 }}>•</span>

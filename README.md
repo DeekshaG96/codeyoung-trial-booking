@@ -19,20 +19,14 @@
 
 ---
 
-## 📌 Executive Summary & Submission Information
 
-| Detail | Information |
-|---|---|
-| **Platform Name** | **Kodaverse™** (The Global 1:1 Coding & STEM Mentorship Platform) |
-| **Candidate Name** | **Deeksha G** |
-| **Institute** | **Srinivas Institute of Technology, Mangaluru (SITMNG)** |
 
 | **Live Production URLs** | **Primary:** [https://kodaverse-863ce.web.app](https://kodaverse-863ce.web.app/)<br>**Mirror:** [https://codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/) |
 | **GitHub Repository** | **[https://github.com/DeekshaG96/codeyoung-trial-booking](https://github.com/DeekshaG96/codeyoung-trial-booking)** |
 
 ---
 
-## 🌟 The Business Problem & System Constraints
+##  The Business Problem & System Constraints
 
 At **Kodaverse**, parents book a 1:1 "trial class" to evaluate the platform, meet educators, and explore personalized coding curricula before subscribing.
 
@@ -51,7 +45,7 @@ At **Kodaverse**, parents book a 1:1 "trial class" to evaluate the platform, mee
 
 ---
 
-## 🏆 Key Architectural Innovations
+##  Key Architectural Innovations
 
 ```mermaid
 flowchart TD
@@ -66,17 +60,17 @@ flowchart TD
     MeetingLink --> Classroom["Live Classroom Sandbox & STEM Certificate Generator"]
 ```
 
-### 1. 🕒 Live Dual-Timezone Synchronizer Strip & DST Engine
-- **Parent Local Clock:** Real-time ticking clock displaying local time, formatted timezone name (`EDT`, `CDT`, `PDT`, `BST`), and active DST status badge (`☀️ Daylight Saving Time Active: EDT (UTC-04:00)`).
+### 1.  Live Dual-Timezone Synchronizer Strip & DST Engine
+- **Parent Local Clock:** Real-time ticking clock displaying local time, formatted timezone name (`EDT`, `CDT`, `PDT`, `BST`), and active DST status badge (` Daylight Saving Time Active: EDT (UTC-04:00)`).
 - **Mentor Clock:** Real-time clock for Bangalore, India (`Asia/Kolkata` - IST UTC+05:30).
 - **Interactive DST Inspector Modal:** Lets evaluators select transition dates (e.g., US March 8 spring-forward 23h day, US Nov 1 fall-back 25h day) and view live offset calculations.
 
-### 2. 🎯 Age-Adaptive Pathway & 45-Minute Project Teaser
-- Dynamic tagging: Flagging disciplines with `⭐ Best for Age X` based on the child's age.
-- Experience Calibrator: Parents select prior coding exposure (*🐣 Beginner*, *🚀 Explorer*, *⚡ Advanced*).
+### 2.  Age-Adaptive Pathway & 45-Minute Project Teaser
+- Dynamic tagging: Flagging disciplines with ` Best for Age X` based on the child's age.
+- Experience Calibrator: Parents select prior coding exposure (*Beginner*, * Explorer*, * Advanced*).
 - 45-Minute Project Preview: Shows what the student builds in their trial session (*Space Alien Maze* for Scratch, *AI Codebreaker* for Python, *Interactive Cyber Portfolio* for Web Dev).
 
-### 3. 📱 Omnichannel Communication Hub (HTML Email + WhatsApp Simulation)
+### 3.  Omnichannel Communication Hub (HTML Email + WhatsApp Simulation)
 - Dispatches localized emails formatted with parent local time and mentor IST time.
 - **WhatsApp Simulator:** Evaluators can toggle to the WhatsApp view to see the mobile alert copy with verified business checkmarks and join links.
 
@@ -84,31 +78,13 @@ flowchart TD
 - Built-in live coding sandbox with Python execution terminal and visual Scratch block canvas.
 - **Trial Certificate Modal:** Generates an official Kodaverse Academy Certificate of Achievement with student name, verification ID, date, and 1-click **"Print / Save as PDF"** functionality.
 
-### 5. ⚡ Evaluator Quick Demo Shortcuts Dock
+### 5.  Evaluator Quick Demo Shortcuts Dock
 - Floating bottom-right action pill allowing evaluators to load pre-configured test scenarios (US Parent, UK Parent, 20-Parent Simulation, Mentor Dashboard, Classroom) with one click.
 
 ---
 
-## 🚀 Modern Production Tech Stack (12-Tool Architecture)
 
-Kodaverse is architected around the modern, enterprise-grade cloud toolchain:
-
-| Tool | Core Domain | Architectural Implementation in Kodaverse |
-|---|---|---|
-| 🤖 **Claude** | AI Coding & Mentorship | Powers the in-browser Virtual Classroom AI pair-programmer, syntax linter, and real-time Scratch logic debugger. |
-| ⚡ **Supabase** | Backend & Database | Enterprise PostgreSQL relational database with Row Level Security (RLS) policies across `mentors`, `bookings`, `notifications`, and `waitlist`. |
-| ▲ **Vercel** | Serverless Deployment | Zero-config edge deployment with serverless API functions (`api/index.js`) and sub-50ms worldwide asset delivery. |
-| 🚀 **Spaceship** | Domain Management | DNS and domain configuration managing apex `kodaverse.io` and dynamic classroom subdomains `meet.kodaverse.io`. |
-| 💳 **Stripe** | Global Payments | Post-trial curriculum checkout engine with 1-click test card auto-fill, plan selector, and instant PDF receipt generation. |
-| 🐙 **GitHub** | Version Control & CI | Public repository with automated Vitest CI actions running 23 cross-timezone DST test suites on every push. |
-| ✉️ **Resend** | Transactional Emails | High-deliverability email engine dispatching dual-timezone localized booking confirmations with RFC 5545 `.ics` calendar attachments. |
-| 🔒 **Clerk** | Multi-Role Authentication | Frictionless identity management supporting instant switching between **Parent Mode** (Sarah Jenkins - US EDT) and **Mentor Mode** (Aarav Sharma - IST). |
-| ☁️ **Cloudflare** | Edge DNS & Security | Global Anycast DNS (&lt;9ms resolution), Layer 7 DDoS mitigation, TLS 1.3 strict SSL, and edge static caching. |
-| 🦔 **PostHog** | Product Analytics | Full-funnel conversion tracking (*Visitor* &rarr; *Subject* &rarr; *Slot* &rarr; *Verified* &rarr; *Booked*) and geographic timezone volume breakdowns. |
-| 🛡️ **Sentry** | Error Monitoring | Real-time health monitoring with 0 error rate, telemetry breadcrumbs, and mathematical invariant guard enforcement. |
-| 🔍 **Perplexity** | Deep Research | AI-driven STEM curriculum engine benchmarking student age and skill level against CSTA K-12 standards to recommend personalized trial projects. |
-
-## 👨‍🏫 10-Mentor Operational Shift Architecture
+##  10-Mentor Operational Shift Architecture
 
 To cover peak evening hours for UK and North American families while preventing educator fatigue, mentors operate in 4 structured shifts in India Standard Time:
 
@@ -127,7 +103,7 @@ Our scheduler normalizes sessions occurring between `00:00` and `07:00 IST` to t
 
 ---
 
-## 🧪 Automated Testing Suite (28/28 Vitest Tests Passing)
+##  Automated Testing Suite (28/28 Vitest Tests Passing)
 
 Run tests locally with:
 ```bash
@@ -203,7 +179,7 @@ Test Files  5 passed (5)
 
 ---
 
-## 🚀 Setup & Local Execution Guide
+##  Setup & Local Execution Guide
 
 ### Prerequisites:
 - **Node.js:** v18.0.0 or higher
@@ -237,7 +213,7 @@ npm run build
 
 ---
 
-## ☁️ Vercel Serverless Architecture
+##  Vercel Serverless Architecture
 
 The monorepo is configured for continuous deployment on **Vercel**:
 - **Static Frontend Bundle:** Compiled by Vite into `client/dist`.

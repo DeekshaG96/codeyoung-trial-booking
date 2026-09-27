@@ -187,14 +187,14 @@ export default function App() {
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <strong>Kodaverse™ | The Global 1:1 Coding & STEM Mentorship Platform</strong>
-            <div style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>
+            <div style={{ color: 'var(--text-muted)', fontSize: '16px', marginTop: '2px' }}>
               Full-Stack Architecture: React 19 • Node.js • Supabase • Stripe • PostHog • Sentry • Resend • Vercel
             </div>
           </div>
 
-          <div style={{ textAlign: 'right', fontSize: '12.5px' }}>
+          <div style={{ textAlign: 'right', fontSize: '16px' }}>
             <div>Engineered by <strong>Deeksha G</strong> (SIT Mangaluru)</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '11.5px' }}>
+            <div style={{ color: 'var(--text-muted)', fontSize: '16px' }}>
               Talentise Global × Codeyoung Engineering Submission
             </div>
           </div>

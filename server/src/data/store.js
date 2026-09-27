@@ -154,6 +154,10 @@ class DataStore {
   getNotificationLog() {
     return this.notificationLog;
   }
+
+  getNotifications() {
+    return this.notificationLog;
+  }
 }
 
 export const store = new DataStore();

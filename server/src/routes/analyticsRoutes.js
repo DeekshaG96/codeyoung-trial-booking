@@ -8,10 +8,10 @@ const router = express.Router();
  * Returns PostHog & Sentry aggregated platform metrics
  */
 router.get('/analytics', (req, res) => {
-  const bookings = store.getBookings();
-  const waitlist = store.getWaitlist();
-  const notifications = store.getNotifications();
-  const mentors = store.getMentors();
+  const bookings = (store.getBookings ? store.getBookings() : (store.bookings || [])) || [];
+  const waitlist = (store.getWaitlist ? store.getWaitlist() : (store.waitlist || [])) || [];
+  const notifications = (store.getNotifications ? store.getNotifications() : (store.getNotificationLog ? store.getNotificationLog() : (store.notificationLog || []))) || [];
+  const mentors = (store.getMentors ? store.getMentors() : (store.mentors || [])) || [];
 
   // Timezone breakdown
   const timezoneCounts = {};

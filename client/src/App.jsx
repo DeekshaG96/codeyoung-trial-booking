@@ -20,6 +20,7 @@ export default function App() {
   const [isStripeOpen, setIsStripeOpen] = useState(false);
   const [userRole, setUserRole] = useState('parent'); // 'parent' or 'mentor'
   const [evaluatorPreset, setEvaluatorPreset] = useState(null);
+  const [isPresetsOpen, setIsPresetsOpen] = useState(false);
 
   const handleResetData = async () => {
     try {
@@ -64,6 +65,7 @@ export default function App() {
         onOpenDstInspector={() => setIsDstInspectorOpen(true)}
         userRole={userRole}
         onSwitchRole={handleSwitchRole}
+        onOpenPresets={() => setIsPresetsOpen(prev => !prev)}
       />
 
       {/* Global Reset / Role Switch Toast */}
@@ -158,6 +160,8 @@ export default function App() {
 
       {/* Quick Evaluator Dock */}
       <QuickEvaluatorBar
+        isOpen={isPresetsOpen}
+        setIsOpen={setIsPresetsOpen}
         onSelectPreset={handleSelectPreset}
         setActiveTab={setActiveTab}
         onEnterClassroom={handleEnterClassroom}

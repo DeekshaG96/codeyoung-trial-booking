@@ -8,7 +8,8 @@ export default function Navbar({
   onResetData, 
   onOpenDstInspector,
   userRole,
-  onSwitchRole
+  onSwitchRole,
+  onOpenPresets
 }) {
   return (
     <header className="header-nav" id="main-navigation-header">
@@ -54,9 +55,13 @@ export default function Navbar({
             id="nav-tab-simulation"
             className={`nav-tab-btn ${activeTab === 'simulation' ? 'active' : ''}`}
             onClick={() => setActiveTab('simulation')}
+            title="Internal Load Balancing & Capacity Verification Engine (QA)"
           >
             <PlayCircle size={15} />
-            <span>20-Parent Test</span>
+            <span>Capacity Simulator</span>
+            <span style={{ fontSize: '9.5px', background: '#e0e7ff', color: '#4338ca', padding: '1px 5px', borderRadius: '4px', fontWeight: 800, marginLeft: '3px' }}>
+              QA
+            </span>
           </button>
 
           <button
@@ -89,6 +94,17 @@ export default function Navbar({
 
         {/* Header Right Actions */}
         <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            id="btn-nav-presets"
+            className="btn-secondary"
+            style={{ padding: '6px 10px', fontSize: '11.5px', background: 'linear-gradient(135deg, #eef2ff 0%, #ede9fe 100%)', borderColor: '#c7d2fe', color: '#4338ca', fontWeight: 700 }}
+            onClick={onOpenPresets}
+            title="Open Evaluator Demo Shortcuts & Presets"
+          >
+            <Sparkles size={13} color="#6366f1" />
+            <span>Presets Dock</span>
+          </button>
+
           <button
             id="btn-nav-dst-inspector"
             className="btn-secondary"

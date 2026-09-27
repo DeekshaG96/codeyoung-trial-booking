@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Terminal, Globe, Cpu, Gamepad2, Calculator, Check, ArrowRight } from 'lucide-react';
+import { Code, Terminal, Globe, Cpu, Gamepad2, Calculator, Check, ArrowRight, AlertTriangle } from 'lucide-react';
 
 const SUBJECT_OPTIONS = [
   {
@@ -83,9 +83,51 @@ const EXPERIENCE_LEVELS = [
 ];
 
 export default function ChildSubjectStep({ formData, updateFormData, onNext }) {
-  const isFormValid = formData.childName?.trim() && formData.childAge && formData.subject;
   const currentAge = formData.childAge ? parseInt(formData.childAge, 10) : null;
-  const selectedSubjectObj = SUBJECT_OPTIONS.find(s => s.id === formData.subject);
+
+  // Normalize subject lookup so any title/alias maps cleanly to SUBJECT_OPTIONS
+  const normalizeSubjectId = (subj) => {
+    if (!subj) return 'Scratch';
+    const match = SUBJECT_OPTIONS.find(s => 
+      s.id.toLowerCase() === subj.toLowerCase() ||
+      s.title.toLowerCase() === subj.toLowerCase() ||
+      s.id.toLowerCase().includes(subj.toLowerCase()) ||
+      subj.toLowerCase().includes(s.id.toLowerCase())
+    );
+    return match ? match.id : 'Scratch';
+  };
+
+  const activeSubjectId = normalizeSubjectId(formData.subject);
+  const selectedSubjectObj = SUBJECT_OPTIONS.find(s => s.id === activeSubjectId) || SUBJECT_OPTIONS[0];
+
+  // Age validation
+  const isCurrentSubjectOutOfRange = currentAge 
+    ? (currentAge < selectedSubjectObj.minAge || currentAge > selectedSubjectObj.maxAge) 
+    : false;
+
+  const recommendedSubjectForAge = currentAge 
+    ? (SUBJECT_OPTIONS.find(s => currentAge >= s.minAge && currentAge <= s.maxAge) || SUBJECT_OPTIONS[0]) 
+    : null;
+
+  const isFormValid = Boolean(formData.childName?.trim() && formData.childAge && activeSubjectId);
+
+  // Dynamic age change with smart auto-switch for out-of-range subjects
+  const handleAgeChange = (newAgeStr) => {
+    const newAge = newAgeStr ? parseInt(newAgeStr, 10) : null;
+    let nextSubject = activeSubjectId;
+
+    if (newAge) {
+      const curSub = SUBJECT_OPTIONS.find(s => s.id === activeSubjectId);
+      if (curSub && (newAge < curSub.minAge || newAge > curSub.maxAge)) {
+        const bestFit = SUBJECT_OPTIONS.find(s => newAge >= s.minAge && newAge <= s.maxAge);
+        if (bestFit) {
+          nextSubject = bestFit.id;
+        }
+      }
+    }
+
+    updateFormData({ childAge: newAgeStr, subject: nextSubject });
+  };
 
   return (
     <div id="step-child-subject-container">
@@ -119,7 +161,7 @@ export default function ChildSubjectStep({ formData, updateFormData, onNext }) {
             id="input-child-age"
             className="form-input select-input"
             value={formData.childAge}
-            onChange={(e) => updateFormData({ childAge: e.target.value })}
+            onChange={(e) => handleAgeChange(e.target.value)}
             required
           >
             <option value="">Select Age</option>
@@ -177,6 +219,53 @@ export default function ChildSubjectStep({ formData, updateFormData, onNext }) {
         </div>
       </div>
 
+      {/* Out of Range Pedagogical Warning Banner */}
+      {isCurrentSubjectOutOfRange && recommendedSubjectForAge && (
+        <div style={{
+          background: '#fffbeb',
+          border: '1.5px solid #fde68a',
+          borderRadius: 'var(--radius-md)',
+          padding: '14px 18px',
+          marginBottom: '20px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '12px',
+          boxShadow: '0 2px 4px rgba(245, 158, 11, 0.08)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <AlertTriangle size={22} color="#d97706" style={{ flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#92400e' }}>
+                Age Advisory for {formData.childName || 'Your Child'} ({currentAge} years old)
+              </div>
+              <div style={{ fontSize: '12px', color: '#b45309', marginTop: '2px' }}>
+                <strong>{selectedSubjectObj.title}</strong> is designed for {selectedSubjectObj.ages}. For age {currentAge}, we recommend <strong>{recommendedSubjectForAge.title}</strong> (⭐ Best for Age {currentAge}) for optimal learning outcomes.
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="btn-secondary"
+            style={{
+              background: 'white',
+              borderColor: '#f59e0b',
+              color: '#b45309',
+              padding: '6px 14px',
+              fontSize: '12px',
+              fontWeight: 800,
+              borderRadius: 'var(--radius-pill)',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}
+            onClick={() => updateFormData({ subject: recommendedSubjectForAge.id })}
+          >
+            ⚡ Switch to {recommendedSubjectForAge.id} ({recommendedSubjectForAge.ages})
+          </button>
+        </div>
+      )}
+
       {/* Subject Cards Selection */}
       <div style={{ marginBottom: '20px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
@@ -195,8 +284,9 @@ export default function ChildSubjectStep({ formData, updateFormData, onNext }) {
 
         <div className="subject-grid">
           {SUBJECT_OPTIONS.map((sub) => {
-            const isSelected = formData.subject === sub.id;
+            const isSelected = activeSubjectId === sub.id;
             const isAgeRecommended = currentAge && currentAge >= sub.minAge && currentAge <= sub.maxAge;
+            const isOutOfRange = currentAge && (currentAge < sub.minAge || currentAge > sub.maxAge);
 
             return (
               <div
@@ -220,6 +310,23 @@ export default function ChildSubjectStep({ formData, updateFormData, onNext }) {
                     boxShadow: '0 2px 4px rgba(16, 185, 129, 0.3)'
                   }}>
                     ⭐ Best for Age {currentAge}
+                  </div>
+                )}
+
+                {isOutOfRange && isSelected && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '-9px',
+                    right: '12px',
+                    background: '#dc2626',
+                    color: 'white',
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    padding: '2px 8px',
+                    borderRadius: 'var(--radius-pill)',
+                    boxShadow: '0 2px 4px rgba(220, 38, 38, 0.3)'
+                  }}>
+                    ⚠️ {sub.ages} (Child is {currentAge})
                   </div>
                 )}
 
@@ -250,7 +357,7 @@ export default function ChildSubjectStep({ formData, updateFormData, onNext }) {
 
       {/* Interactive Project Teaser for Selected Subject */}
       {selectedSubjectObj && (
-        <div style={{
+        <div id="project-teaser-card" style={{
           background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%)',
           border: '1.5px solid #a7f3d0',
           borderRadius: 'var(--radius-lg)',
@@ -261,9 +368,9 @@ export default function ChildSubjectStep({ formData, updateFormData, onNext }) {
           gap: '8px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 800, color: '#065f46' }}>
-            <span>🎯 What {formData.childName || 'Your Child'} Will Build in this 45-Minute Trial:</span>
+            <span>🎯 What {formData.childName || 'Your Child'} Will Build in this 45-Minute Trial ({selectedSubjectObj.title}):</span>
           </div>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: '#047857' }}>
+          <div style={{ fontSize: '14.5px', fontWeight: 800, color: '#047857' }}>
             {selectedSubjectObj.projectTeaser}
           </div>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '4px' }}>

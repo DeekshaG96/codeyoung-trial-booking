@@ -5,23 +5,28 @@ export default function QuickEvaluatorBar({
   onSelectPreset,
   setActiveTab,
   onEnterClassroom,
-  onOpenStripeCheckout
+  onOpenStripeCheckout,
+  isOpen: controlledIsOpen,
+  setIsOpen: controlledSetIsOpen
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [dockPosition, setDockPosition] = useState('bottom-center'); // 'bottom-center' | 'bottom-left' | 'bottom-right'
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+  const setIsOpen = controlledSetIsOpen || setInternalIsOpen;
+
+  const [dockPosition, setDockPosition] = useState('bottom-right'); // default safely in corner
+  const [isMinimized, setIsMinimized] = useState(true); // minimized by default so it never blocks form fields!
 
   const cyclePosition = (e) => {
     e.stopPropagation();
-    if (dockPosition === 'bottom-center') setDockPosition('bottom-left');
-    else if (dockPosition === 'bottom-left') setDockPosition('bottom-right');
-    else setDockPosition('bottom-center');
+    if (dockPosition === 'bottom-right') setDockPosition('bottom-left');
+    else if (dockPosition === 'bottom-left') setDockPosition('bottom-center');
+    else setDockPosition('bottom-right');
   };
 
   const getContainerStyle = () => {
     const base = {
       position: 'fixed',
-      bottom: '20px',
+      bottom: '16px',
       zIndex: 90,
       fontFamily: 'var(--font-body)',
       transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -31,35 +36,39 @@ export default function QuickEvaluatorBar({
       return { ...base, left: '50%', transform: 'translateX(-50%)', right: 'auto' };
     }
     if (dockPosition === 'bottom-left') {
-      return { ...base, left: '24px', right: 'auto', transform: 'none' };
+      return { ...base, left: '20px', right: 'auto', transform: 'none' };
     }
-    return { ...base, right: '24px', left: 'auto', transform: 'none' };
+    return { ...base, right: '20px', left: 'auto', transform: 'none' };
   };
 
   return (
     <div style={getContainerStyle()} id="quick-evaluator-dock-container">
-      {/* Minimized Tiny Floating Trigger */}
-      {isMinimized ? (
+      {/* Minimized Tiny Floating Trigger in corner (never covers center inputs) */}
+      {isMinimized && !isOpen ? (
         <button
           id="btn-unminimize-evaluator-dock"
-          onClick={() => setIsMinimized(false)}
-          title="Restore Evaluator Presets Dock"
+          onClick={() => { setIsMinimized(false); setIsOpen(true); }}
+          title="Open Evaluator Presets & QA Shortcuts"
           style={{
             background: 'linear-gradient(135deg, #1e1b4b 0%, #4f46e5 100%)',
             color: 'white',
             border: '1.5px solid #818cf8',
             borderRadius: 'var(--radius-pill)',
-            padding: '8px 14px',
-            fontSize: '12px',
+            padding: '6px 12px',
+            fontSize: '11px',
             fontWeight: 800,
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            boxShadow: '0 8px 20px rgba(79, 70, 229, 0.4)',
-            cursor: 'pointer'
+            boxShadow: '0 4px 12px rgba(79, 70, 229, 0.35)',
+            cursor: 'pointer',
+            opacity: 0.9,
+            transition: 'all 0.2s ease'
           }}
+          onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'scale(1.03)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'scale(1)'; }}
         >
-          <Zap size={14} color="#fbbf24" />
+          <Sparkles size={13} color="#fbbf24" />
           <span>⚡ Presets Dock</span>
         </button>
       ) : !isOpen ? (

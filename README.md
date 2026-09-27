@@ -227,7 +227,6 @@ Live deployment: **[codeyoung-trial-booking-lime.vercel.app](https://codeyoung-t
 <div align="center">
 
 **Kodaverse™ — Engineered with precision**  
-*Candidate: Deeksha G (Srinivas Institute of Technology, Mangaluru - 2027 Batch)*  
-*Recruitment Partner: Talentise Global (`campus.ka@talentiseglobal.com`)*
+
 
 </div>

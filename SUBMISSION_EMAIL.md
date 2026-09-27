@@ -6,7 +6,9 @@ Dear Campus Team,
 
 Please find the Codeyoung Full‑Stack Development assignment submission linked below.
 
-Repository: <GITHUB_REPO_LINK>  (Replace with the repo URL)
+Repository: https://github.com/DeekshaG96/codeyoung-trial-booking
+
+Note: A short demo GIF of the booking flow will be attached to the repository pull request once generated.
 
 Included in the repository:
 - Complete source code (server and client)

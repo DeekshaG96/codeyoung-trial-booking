@@ -5,6 +5,7 @@ import bookingsRoutes from './src/routes/bookingsRoutes.js';
 import mentorsRoutes from './src/routes/mentorsRoutes.js';
 import simulateRoutes from './src/routes/simulateRoutes.js';
 import notificationsRoutes from './src/routes/notificationsRoutes.js';
+import analyticsRoutes from './src/routes/analyticsRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -29,6 +30,7 @@ app.use('/api', bookingsRoutes);
 app.use('/api', mentorsRoutes);
 app.use('/api', simulateRoutes);
 app.use('/api', notificationsRoutes);
+app.use('/api', analyticsRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

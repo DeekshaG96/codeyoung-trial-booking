@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Zap, ChevronUp, ChevronDown, Check, Globe, Users, Video, Mail, PlayCircle, Sparkles } from 'lucide-react';
+import { Zap, ChevronUp, ChevronDown, Check, Globe, Users, Video, Mail, PlayCircle, Sparkles, BarChart3, CreditCard } from 'lucide-react';
 
 export default function QuickEvaluatorBar({ 
   onSelectPreset,
   setActiveTab,
-  onEnterClassroom
+  onEnterClassroom,
+  onOpenStripeCheckout
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -147,6 +148,30 @@ export default function QuickEvaluatorBar({
             >
               <Mail size={14} />
               <span>WhatsApp & Email Dispatch Logs</span>
+            </button>
+
+            <button
+              className="btn-secondary"
+              style={{ justifyContent: 'flex-start', padding: '8px 12px', fontSize: '12px', background: '#ecfdf5', borderColor: '#a7f3d0', color: '#047857' }}
+              onClick={() => {
+                setActiveTab('analytics');
+                setIsOpen(false);
+              }}
+            >
+              <BarChart3 size={14} />
+              <span style={{ fontWeight: 700 }}>PostHog & Sentry Telemetry</span>
+            </button>
+
+            <button
+              className="btn-secondary"
+              style={{ justifyContent: 'flex-start', padding: '8px 12px', fontSize: '12px', background: '#f5f3ff', borderColor: '#ddd6fe', color: '#6d28d9' }}
+              onClick={() => {
+                onOpenStripeCheckout();
+                setIsOpen(false);
+              }}
+            >
+              <CreditCard size={14} />
+              <span style={{ fontWeight: 700 }}>Stripe Course Checkout</span>
             </button>
 
             <button

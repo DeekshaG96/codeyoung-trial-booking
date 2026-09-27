@@ -1,11 +1,14 @@
 import React from 'react';
-import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, Zap } from 'lucide-react';
+import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, BarChart3, CreditCard } from 'lucide-react';
+import ClerkRoleSwitcher from './DeveloperSuite/ClerkRoleSwitcher';
 
 export default function Navbar({ 
   activeTab, 
   setActiveTab, 
   onResetData, 
-  onOpenDstInspector
+  onOpenDstInspector,
+  userRole,
+  onSwitchRole
 }) {
   return (
     <header className="header-nav" id="main-navigation-header">
@@ -34,7 +37,7 @@ export default function Navbar({
             className={`nav-tab-btn ${activeTab === 'booking' ? 'active' : ''}`}
             onClick={() => setActiveTab('booking')}
           >
-            <Calendar size={16} />
+            <Calendar size={15} />
             <span>Book Trial Session</span>
           </button>
 
@@ -43,7 +46,7 @@ export default function Navbar({
             className={`nav-tab-btn ${activeTab === 'mentors' ? 'active' : ''}`}
             onClick={() => setActiveTab('mentors')}
           >
-            <Users size={16} />
+            <Users size={15} />
             <span>Mentor Schedules</span>
           </button>
 
@@ -52,7 +55,7 @@ export default function Navbar({
             className={`nav-tab-btn ${activeTab === 'simulation' ? 'active' : ''}`}
             onClick={() => setActiveTab('simulation')}
           >
-            <PlayCircle size={16} />
+            <PlayCircle size={15} />
             <span>20-Parent Test</span>
           </button>
 
@@ -61,7 +64,7 @@ export default function Navbar({
             className={`nav-tab-btn ${activeTab === 'classroom' ? 'active' : ''}`}
             onClick={() => setActiveTab('classroom')}
           >
-            <Video size={16} />
+            <Video size={15} />
             <span>Live Classroom</span>
           </button>
 
@@ -70,8 +73,17 @@ export default function Navbar({
             className={`nav-tab-btn ${activeTab === 'emails' ? 'active' : ''}`}
             onClick={() => setActiveTab('emails')}
           >
-            <Mail size={16} />
-            <span>Communications Hub</span>
+            <Mail size={15} />
+            <span>Comms Hub</span>
+          </button>
+
+          <button
+            id="nav-tab-analytics"
+            className={`nav-tab-btn ${activeTab === 'analytics' ? 'active' : ''}`}
+            onClick={() => setActiveTab('analytics')}
+          >
+            <BarChart3 size={15} />
+            <span>Analytics & Stack</span>
           </button>
         </nav>
 
@@ -80,24 +92,30 @@ export default function Navbar({
           <button
             id="btn-nav-dst-inspector"
             className="btn-secondary"
-            style={{ padding: '6px 12px', fontSize: '12px', background: '#f8fafc' }}
+            style={{ padding: '6px 10px', fontSize: '11.5px', background: '#f8fafc' }}
             onClick={onOpenDstInspector}
             title="Inspect IANA Daylight Saving Time (DST) Transitions"
           >
-            <Compass size={14} color="#4f46e5" />
+            <Compass size={13} color="#4f46e5" />
             <span>DST Engine</span>
           </button>
 
           <button
             id="btn-quick-reset"
             className="btn-secondary"
-            style={{ padding: '6px 12px', fontSize: '12px' }}
+            style={{ padding: '6px 10px', fontSize: '11.5px' }}
             onClick={onResetData}
             title="Reset system test data back to initial state"
           >
-            <RotateCcw size={14} />
-            <span>Reset Data</span>
+            <RotateCcw size={13} />
+            <span>Reset</span>
           </button>
+
+          {/* Clerk Auth Profile Switcher */}
+          <ClerkRoleSwitcher
+            currentRole={userRole}
+            onSwitchRole={onSwitchRole}
+          />
         </div>
       </div>
     </header>

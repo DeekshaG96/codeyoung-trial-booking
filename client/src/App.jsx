@@ -7,6 +7,8 @@ import VirtualClassroom from './components/VirtualClassroom/VirtualClassroom';
 import EmailModal from './components/EmailSimulator/EmailModal';
 import DstInspectorModal from './components/DstInspectorModal';
 import QuickEvaluatorBar from './components/QuickEvaluatorBar';
+import TelemetryDashboard from './components/DeveloperSuite/TelemetryDashboard';
+import StripeCheckoutModal from './components/DeveloperSuite/StripeCheckoutModal';
 import { api } from './services/api';
 import { Sparkles, Calendar, Clock, Globe, Shield, Award, CheckCircle, ShieldCheck } from 'lucide-react';
 
@@ -15,6 +17,8 @@ export default function App() {
   const [activeBookingId, setActiveBookingId] = useState(null);
   const [resetToast, setResetToast] = useState(null);
   const [isDstInspectorOpen, setIsDstInspectorOpen] = useState(false);
+  const [isStripeOpen, setIsStripeOpen] = useState(false);
+  const [userRole, setUserRole] = useState('parent'); // 'parent' or 'mentor'
   const [evaluatorPreset, setEvaluatorPreset] = useState(null);
 
   const handleResetData = async () => {
@@ -38,6 +42,18 @@ export default function App() {
     setActiveTab('booking');
   };
 
+  const handleSwitchRole = (role) => {
+    setUserRole(role);
+    if (role === 'mentor') {
+      setActiveTab('mentors');
+      setResetToast('Switched to Mentor Mode (Aarav Sharma • Asia/Kolkata IST)');
+    } else {
+      setActiveTab('booking');
+      setResetToast('Switched to Parent Mode (Sarah Jenkins • America/New_York EDT)');
+    }
+    setTimeout(() => setResetToast(null), 3500);
+  };
+
   return (
     <div className="app-container" id="kodaverse-app-root">
       {/* Top Navbar */}
@@ -46,9 +62,11 @@ export default function App() {
         setActiveTab={setActiveTab}
         onResetData={handleResetData}
         onOpenDstInspector={() => setIsDstInspectorOpen(true)}
+        userRole={userRole}
+        onSwitchRole={handleSwitchRole}
       />
 
-      {/* Global Reset Toast */}
+      {/* Global Reset / Role Switch Toast */}
       {resetToast && (
         <div style={{ background: '#059669', color: 'white', padding: '10px 24px', textAlign: 'center', fontSize: '13.5px', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
           <CheckCircle size={16} />
@@ -101,6 +119,7 @@ export default function App() {
             presetData={evaluatorPreset}
             onEnterClassroom={handleEnterClassroom}
             onOpenEmails={() => setActiveTab('emails')}
+            onOpenStripeCheckout={() => setIsStripeOpen(true)}
           />
         )}
 
@@ -120,12 +139,19 @@ export default function App() {
           <VirtualClassroom
             bookingId={activeBookingId}
             onBackToBooking={() => setActiveTab('booking')}
+            onOpenStripeCheckout={() => setIsStripeOpen(true)}
           />
         )}
 
         {activeTab === 'emails' && (
           <EmailModal
             onEnterClassroom={handleEnterClassroom}
+          />
+        )}
+
+        {activeTab === 'analytics' && (
+          <TelemetryDashboard
+            onOpenStripeCheckout={() => setIsStripeOpen(true)}
           />
         )}
       </main>
@@ -135,6 +161,7 @@ export default function App() {
         onSelectPreset={handleSelectPreset}
         setActiveTab={setActiveTab}
         onEnterClassroom={handleEnterClassroom}
+        onOpenStripeCheckout={() => setIsStripeOpen(true)}
       />
 
       {/* DST Inspector Modal */}
@@ -144,20 +171,27 @@ export default function App() {
         />
       )}
 
+      {/* Stripe Checkout Modal */}
+      {isStripeOpen && (
+        <StripeCheckoutModal
+          onClose={() => setIsStripeOpen(false)}
+        />
+      )}
+
       {/* Footer */}
       <footer className="app-footer">
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <strong>Kodaverse™ | The Global 1:1 Coding & STEM Mentorship Platform</strong>
             <div style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>
-              Next-Generation Cross-Timezone Scheduling & Live Virtual Classroom System
+              Full-Stack Architecture: React 19 • Node.js • Supabase • Stripe • PostHog • Sentry • Resend • Vercel
             </div>
           </div>
 
           <div style={{ textAlign: 'right', fontSize: '12.5px' }}>
             <div>Engineered by <strong>Deeksha G</strong> (SIT Mangaluru)</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '11.5px' }}>
-              React 19 • Node.js • Luxon IANA DST Engine • 10-Mentor Shift Balancer
+              Talentise Global × Codeyoung Engineering Submission
             </div>
           </div>
         </div>

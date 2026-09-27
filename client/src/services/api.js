@@ -98,5 +98,12 @@ export const api = {
     const res = await fetch(`${API_BASE}/notifications`);
     if (!res.ok) throw new Error('Failed to fetch notifications');
     return res.json();
+  },
+
+  // PostHog & Sentry Telemetry Analytics
+  async getAnalytics() {
+    const res = await fetch(`${API_BASE}/analytics`);
+    if (!res.ok) throw new Error('Failed to fetch analytics');
+    return res.json();
   }
 };

@@ -89,6 +89,25 @@ flowchart TD
 
 ---
 
+## 🚀 Modern Production Tech Stack (12-Tool Architecture)
+
+Kodaverse is architected around the modern, enterprise-grade cloud toolchain:
+
+| Tool | Core Domain | Architectural Implementation in Kodaverse |
+|---|---|---|
+| 🤖 **Claude** | AI Coding & Mentorship | Powers the in-browser Virtual Classroom AI pair-programmer, syntax linter, and real-time Scratch logic debugger. |
+| ⚡ **Supabase** | Backend & Database | Enterprise PostgreSQL relational database with Row Level Security (RLS) policies across `mentors`, `bookings`, `notifications`, and `waitlist`. |
+| ▲ **Vercel** | Serverless Deployment | Zero-config edge deployment with serverless API functions (`api/index.js`) and sub-50ms worldwide asset delivery. |
+| 🚀 **Spaceship** | Domain Management | DNS and domain configuration managing apex `kodaverse.io` and dynamic classroom subdomains `meet.kodaverse.io`. |
+| 💳 **Stripe** | Global Payments | Post-trial curriculum checkout engine with 1-click test card auto-fill, plan selector, and instant PDF receipt generation. |
+| 🐙 **GitHub** | Version Control & CI | Public repository with automated Vitest CI actions running 23 cross-timezone DST test suites on every push. |
+| ✉️ **Resend** | Transactional Emails | High-deliverability email engine dispatching dual-timezone localized booking confirmations with RFC 5545 `.ics` calendar attachments. |
+| 🔒 **Clerk** | Multi-Role Authentication | Frictionless identity management supporting instant switching between **Parent Mode** (Sarah Jenkins - US EDT) and **Mentor Mode** (Aarav Sharma - IST). |
+| ☁️ **Cloudflare** | Edge DNS & Security | Global Anycast DNS (&lt;9ms resolution), Layer 7 DDoS mitigation, TLS 1.3 strict SSL, and edge static caching. |
+| 🦔 **PostHog** | Product Analytics | Full-funnel conversion tracking (*Visitor* &rarr; *Subject* &rarr; *Slot* &rarr; *Verified* &rarr; *Booked*) and geographic timezone volume breakdowns. |
+| 🛡️ **Sentry** | Error Monitoring | Real-time health monitoring with 0 error rate, telemetry breadcrumbs, and mathematical invariant guard enforcement. |
+| 🔍 **Perplexity** | Deep Research | AI-driven STEM curriculum engine benchmarking student age and skill level against CSTA K-12 standards to recommend personalized trial projects. |
+
 ## 👨‍🏫 10-Mentor Operational Shift Architecture
 
 To cover peak evening hours for UK and North American families while preventing educator fatigue, mentors operate in 4 structured shifts in India Standard Time:

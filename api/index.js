@@ -5,6 +5,7 @@ import bookingsRoutes from '../server/src/routes/bookingsRoutes.js';
 import mentorsRoutes from '../server/src/routes/mentorsRoutes.js';
 import simulateRoutes from '../server/src/routes/simulateRoutes.js';
 import notificationsRoutes from '../server/src/routes/notificationsRoutes.js';
+import analyticsRoutes from '../server/src/routes/analyticsRoutes.js';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use('/api', bookingsRoutes);
 app.use('/api', mentorsRoutes);
 app.use('/api', simulateRoutes);
 app.use('/api', notificationsRoutes);
+app.use('/api', analyticsRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

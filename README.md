@@ -26,8 +26,7 @@
 | **Platform Name** | **Kodaverse™** (The Global 1:1 Coding & STEM Mentorship Platform) |
 | **Candidate Name** | **Deeksha G** |
 | **Institute** | **Srinivas Institute of Technology, Mangaluru (SITMNG)** |
-| **Recruitment Drive** | **Codeyoung (2027 Batch) via Talentise Global** (`campus.ka@talentiseglobal.com`) |
-| **Email Subject Line** | `Codeyoung Assignment Task - Deeksha G - SIT Mangaluru (SITMNG)` |
+
 | **Live Production URLs** | **Primary:** [https://kodaverse-863ce.web.app](https://kodaverse-863ce.web.app/)<br>**Mirror:** [https://codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/) |
 | **GitHub Repository** | **[https://github.com/DeekshaG96/codeyoung-trial-booking](https://github.com/DeekshaG96/codeyoung-trial-booking)** |
 

@@ -1,0 +1,24 @@
+type User @table {
+  name: String!
+  email: String!
+  role: String!
+  timezone: String!
+  createdAt: Timestamp
+}
+
+type MentorAvailability @table {
+  mentor: User!
+  dayOfWeek: Int!
+  startTimeUtc: String!
+  endTimeUtc: String!
+}
+
+type Appointment @table {
+  parent: User!
+  mentor: User!
+  startTime: Timestamp!
+  endTime: Timestamp!
+  meetingLink: String
+  status: String!
+  createdAt: Timestamp
+}

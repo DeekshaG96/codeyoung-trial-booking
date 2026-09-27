@@ -7,23 +7,25 @@ import WaitlistModal from './WaitlistModal';
 import { api } from '../../services/api';
 import { getBrowserTimezone } from '../../utils/timezones';
 import { triggerCelebrationConfetti } from '../../utils/confetti';
-import { Check, Calendar, User, Clock, AlertTriangle } from 'lucide-react';
+import { useAuth } from '../../services/authContext';
+import { Check, Calendar, User, Clock, AlertTriangle, LogIn } from 'lucide-react';
 
 export default function BookingWizard({ onEnterClassroom, onOpenEmails, presetData }) {
+  const { user, openAuthModal } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    childName: presetData?.childName || '',
-    childAge: presetData?.childAge || '9',
+    childName: presetData?.childName || user?.childName || '',
+    childAge: presetData?.childAge || user?.childAge || '9',
     childGrade: 'Grade 4',
     subject: presetData?.subject || 'Scratch',
-    timezone: presetData?.timezone || getBrowserTimezone(),
+    timezone: presetData?.timezone || user?.timezone || getBrowserTimezone(),
     date: '',
     selectedSlot: null,
     startUtc: '',
     endUtc: '',
-    parentName: '',
-    parentEmail: '',
-    parentPhone: '',
+    parentName: user?.role === 'parent' ? user.name : '',
+    parentEmail: user?.role === 'parent' ? user.email : '',
+    parentPhone: user?.phone || '',
     notes: ''
   });
 
@@ -112,6 +114,43 @@ export default function BookingWizard({ onEnterClassroom, onOpenEmails, presetDa
 
   return (
     <div className="glass-card" id="booking-wizard-card">
+      {/* Guest Sign-In Banner */}
+      {!user && currentStep < 4 && (
+        <div style={{
+          background: 'linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%)',
+          border: '1px solid #c7d2fe',
+          borderRadius: '12px',
+          padding: '10px 16px',
+          marginBottom: '16px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '12px'
+        }}>
+          <div style={{ fontSize: '12.5px', color: '#3730a3', lineHeight: 1.4 }}>
+            <span>👋 Have an account? <strong>Sign In</strong> to auto-fill your contact details and view previous trial bookings.</span>
+          </div>
+          <button
+            id="btn-booking-signin"
+            onClick={() => openAuthModal('signin')}
+            className="btn-primary"
+            style={{
+              padding: '6px 14px',
+              fontSize: '11.5px',
+              borderRadius: 'var(--radius-pill)',
+              background: '#4f46e5',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '5px',
+              flexShrink: 0
+            }}
+          >
+            <LogIn size={12} />
+            <span>Sign In</span>
+          </button>
+        </div>
+      )}
+
       {/* Wizard Step Progression Header */}
       {currentStep < 4 && (
         <div className="wizard-header">

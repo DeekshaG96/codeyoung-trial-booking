@@ -6,6 +6,9 @@ import mentorsRoutes from '../server/src/routes/mentorsRoutes.js';
 import simulateRoutes from '../server/src/routes/simulateRoutes.js';
 import notificationsRoutes from '../server/src/routes/notificationsRoutes.js';
 import analyticsRoutes from '../server/src/routes/analyticsRoutes.js';
+import authRoutes from '../server/src/routes/authRoutes.js';
+import aiRoutes from '../server/src/routes/aiRoutes.js';
+import codeRoutes from '../server/src/routes/codeRoutes.js';
 
 const app = express();
 
@@ -19,6 +22,9 @@ app.use('/api', mentorsRoutes);
 app.use('/api', simulateRoutes);
 app.use('/api', notificationsRoutes);
 app.use('/api', analyticsRoutes);
+app.use('/api', authRoutes);
+app.use('/api', aiRoutes);
+app.use('/api', codeRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

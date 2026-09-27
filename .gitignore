@@ -3,4 +3,12 @@ node_modules
 dist
 */dist
 .env
+.env.*
+!.env.example
 *.log
+.venv/
+data/
+*.zip
+.firebase/
+
+

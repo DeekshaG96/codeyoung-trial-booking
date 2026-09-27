@@ -1,0 +1,36 @@
+# List all appointments for a parent
+query GetAppointmentsByParent($parentId: UUID!) @auth(level: USER) {
+  appointments(where: { parentId: { eq: $parentId } }) {
+    id
+    startTime
+    endTime
+    meetingLink
+    status
+    mentor {
+      id
+      name
+      email
+    }
+  }
+}
+
+# Create a new trial class appointment
+mutation CreateAppointment(
+  $parentId: UUID!
+  $mentorId: UUID!
+  $startTime: Timestamp!
+  $endTime: Timestamp!
+  $meetingLink: String!
+  $status: String!
+) @auth(level: USER) {
+  appointment_insert(
+    data: {
+      parentId: $parentId
+      mentorId: $mentorId
+      startTime: $startTime
+      endTime: $endTime
+      meetingLink: $meetingLink
+      status: $status
+    }
+  )
+}

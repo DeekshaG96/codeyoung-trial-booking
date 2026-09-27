@@ -46,7 +46,7 @@ export default function TelemetryDashboard({ onOpenStripeCheckout }) {
               Kodaverse™ Telemetry & Developer Suite
             </h1>
             <p style={{ color: '#c7d2fe', fontSize: '14px', maxWidth: '640px', margin: 0 }}>
-              Live production telemetry integrated across <strong>PostHog</strong> (Funnels), <strong>Sentry</strong> (Health & Errors), <strong>Supabase</strong> (Database Schema), <strong>Stripe</strong> (Payments), and <strong>Resend</strong> (Email API).
+              Live production telemetry integrated across <strong>Firebase</strong> (Auth & Hosting), <strong>Gemini AI</strong>, <strong>PostHog</strong> (Funnels), <strong>Sentry</strong> (Health & Errors), <strong>Stripe</strong> (Payments), and <strong>Resend</strong> (Email API).
             </p>
           </div>
 

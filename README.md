@@ -3,14 +3,15 @@
 # 🌌 Kodaverse™
 ### The Global 1:1 Coding & STEM Mentorship Platform
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel%20Production-10b981?style=for-the-badge&logo=vercel)](https://codeyoung-trial-booking-lime.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Firebase%20%7C%20Vercel-10b981?style=for-the-badge&logo=firebase)](https://kodaverse-863ce.web.app/)
 [![Vitest Passing](https://img.shields.io/badge/Vitest-23%2F23%20Passing-success?style=for-the-badge&logo=vitest)](https://github.com/DeekshaG96/codeyoung-trial-booking)
 [![Daily Capacity](https://img.shields.io/badge/Daily%20Capacity-20%20Demos%2FDay%20Strict-blueviolet?style=for-the-badge)](https://github.com/DeekshaG96/codeyoung-trial-booking)
 [![Timezone Precision](https://img.shields.io/badge/Timezone%20Engine-Luxon%20IANA%20DST-blue?style=for-the-badge)](https://github.com/DeekshaG96/codeyoung-trial-booking)
 [![Candidate](https://img.shields.io/badge/Candidate-Deeksha%20G%20(SIT%20Mangaluru)-orange?style=for-the-badge)](https://github.com/DeekshaG96)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**[👉 Launch Live Production App: codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/)**
+**[👉 Launch Live App (Firebase): kodaverse-863ce.web.app](https://kodaverse-863ce.web.app/)**  
+*Alternate Mirror (Vercel): [codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/)*
 
 *Next-Generation Cross-Timezone 1:1 Scheduling & Virtual Live Classroom Engine.*
 
@@ -27,7 +28,7 @@
 | **Institute** | **Srinivas Institute of Technology, Mangaluru (SITMNG)** |
 | **Recruitment Drive** | **Codeyoung (2027 Batch) via Talentise Global** (`campus.ka@talentiseglobal.com`) |
 | **Email Subject Line** | `Codeyoung Assignment Task - Deeksha G - SIT Mangaluru (SITMNG)` |
-| **Live Production URL** | **[https://codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/)** |
+| **Live Production URLs** | **Primary:** [https://kodaverse-863ce.web.app](https://kodaverse-863ce.web.app/)<br>**Mirror:** [https://codeyoung-trial-booking-lime.vercel.app](https://codeyoung-trial-booking-lime.vercel.app/) |
 | **GitHub Repository** | **[https://github.com/DeekshaG96/codeyoung-trial-booking](https://github.com/DeekshaG96/codeyoung-trial-booking)** |
 
 ---

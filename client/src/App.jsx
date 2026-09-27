@@ -9,16 +9,18 @@ import DstInspectorModal from './components/DstInspectorModal';
 import QuickEvaluatorBar from './components/QuickEvaluatorBar';
 import TelemetryDashboard from './components/DeveloperSuite/TelemetryDashboard';
 import StripeCheckoutModal from './components/DeveloperSuite/StripeCheckoutModal';
+import AuthModal from './components/Auth/AuthModal';
+import { useAuth } from './services/authContext';
 import { api } from './services/api';
 import { Sparkles, Calendar, Clock, Globe, Shield, Award, CheckCircle, ShieldCheck } from 'lucide-react';
 
 export default function App() {
+  const { user, userRole, switchRole, authToast } = useAuth();
   const [activeTab, setActiveTab] = useState('booking');
   const [activeBookingId, setActiveBookingId] = useState(null);
   const [resetToast, setResetToast] = useState(null);
   const [isDstInspectorOpen, setIsDstInspectorOpen] = useState(false);
   const [isStripeOpen, setIsStripeOpen] = useState(false);
-  const [userRole, setUserRole] = useState('parent'); // 'parent' or 'mentor'
   const [evaluatorPreset, setEvaluatorPreset] = useState(null);
   const [isPresetsOpen, setIsPresetsOpen] = useState(false);
 
@@ -44,16 +46,15 @@ export default function App() {
   };
 
   const handleSwitchRole = (role) => {
-    setUserRole(role);
+    switchRole(role);
     if (role === 'mentor') {
       setActiveTab('mentors');
-      setResetToast('Switched to Mentor Mode (Aarav Sharma • Asia/Kolkata IST)');
     } else {
       setActiveTab('booking');
-      setResetToast('Switched to Parent Mode (Sarah Jenkins • America/New_York EDT)');
     }
-    setTimeout(() => setResetToast(null), 3500);
   };
+
+  const currentToast = authToast || resetToast;
 
   return (
     <div className="app-container" id="kodaverse-app-root">
@@ -68,13 +69,16 @@ export default function App() {
         onOpenPresets={() => setIsPresetsOpen(prev => !prev)}
       />
 
-      {/* Global Reset / Role Switch Toast */}
-      {resetToast && (
+      {/* Global Reset / Auth Toast */}
+      {currentToast && (
         <div style={{ background: '#059669', color: 'white', padding: '10px 24px', textAlign: 'center', fontSize: '13.5px', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
           <CheckCircle size={16} />
-          <span>{resetToast}</span>
+          <span>{currentToast}</span>
         </div>
       )}
+
+      {/* Authentication Modal */}
+      <AuthModal />
 
       {/* Hero Banner (Shown on booking portal) */}
       {activeTab === 'booking' && (
@@ -188,7 +192,7 @@ export default function App() {
           <div>
             <strong>Kodaverse™ | The Global 1:1 Coding & STEM Mentorship Platform</strong>
             <div style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>
-              Full-Stack Architecture: React 19 • Node.js • Supabase • Stripe • PostHog • Sentry • Resend • Vercel
+              Full-Stack Architecture: React 19 • Node.js • Firebase Auth & Hosting • Gemini AI • Data Connect • Stripe • PostHog • Sentry
             </div>
           </div>
 

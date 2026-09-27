@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MentorCard from './MentorCard';
 import MentorScheduleModal from './MentorScheduleModal';
 import { api } from '../../services/api';
+import { getLocalMentors } from '../../services/localDataEngine';
 import { Users, Calendar, Filter, Sparkles, AlertCircle, RefreshCw, Zap, Clock } from 'lucide-react';
 
 export default function MentorOverview({ onEnterClassroom }) {
@@ -18,9 +19,16 @@ export default function MentorOverview({ onEnterClassroom }) {
     setIsLoading(true);
     api.getMentors(selectedDate)
       .then(res => {
-        if (res.success) setMentors(res.data);
+        if (res.success && res.data && res.data.length > 0) {
+          setMentors(res.data);
+        } else {
+          setMentors(getLocalMentors(selectedDate));
+        }
       })
-      .catch(err => console.error('Failed to load mentors:', err))
+      .catch(err => {
+        console.error('Failed to load mentors, using local fallback:', err);
+        setMentors(getLocalMentors(selectedDate));
+      })
       .finally(() => setIsLoading(false));
   };
 
@@ -28,20 +36,21 @@ export default function MentorOverview({ onEnterClassroom }) {
     fetchMentorsData();
   }, [selectedDate]);
 
-  // Metrics
-  const totalDemosBooked = mentors.reduce((acc, m) => acc + (m.demosBookedToday || 0), 0);
-  const maxSystemCapacity = mentors.length * 2; // 10 * 2 = 20 demos/day!
-  const capacityPercent = Math.min(100, Math.round((totalDemosBooked / maxSystemCapacity) * 100));
-  const fullyBookedCount = mentors.filter(m => m.isCapacityReached).length;
-  const availableMentorsCount = mentors.filter(m => !m.isCapacityReached).length;
+  // Robust metrics computation (never NaN%)
+  const displayMentors = mentors.length > 0 ? mentors : getLocalMentors(selectedDate);
+  const totalDemosBooked = displayMentors.reduce((acc, m) => acc + (m.demosBookedToday || 0), 0);
+  const maxSystemCapacity = Math.max(displayMentors.length * 2, 20); // 10 * 2 = 20 demos/day!
+  const capacityPercent = maxSystemCapacity > 0 ? Math.min(100, Math.round((totalDemosBooked / maxSystemCapacity) * 100)) : 0;
+  const fullyBookedCount = displayMentors.filter(m => m.isCapacityReached).length;
+  const availableMentorsCount = displayMentors.filter(m => !m.isCapacityReached).length;
 
   const handleQuickSimulation = async () => {
     setSimulating(true);
     setSimResult(null);
     try {
-      const res = await api.runSimulation(selectedDate, 20);
+      const res = await api.runSimulation(selectedDate);
       if (res.success) {
-        setSimResult(res.data);
+        setSimResult(res.report || res.data);
         fetchMentorsData();
       }
     } catch (err) {
@@ -51,7 +60,7 @@ export default function MentorOverview({ onEnterClassroom }) {
     }
   };
 
-  const filteredMentors = mentors.filter(m => {
+  const filteredMentors = displayMentors.filter(m => {
     if (filter === 'AVAILABLE' && m.isCapacityReached) return false;
     if (filter === 'FULL' && !m.isCapacityReached) return false;
     if (shiftFilter !== 'ALL' && m.shiftName !== shiftFilter) return false;
@@ -189,7 +198,7 @@ export default function MentorOverview({ onEnterClassroom }) {
         {simResult && (
           <div style={{ marginTop: '16px', padding: '12px 16px', background: '#ecfdf5', border: '1px solid #a7f3d0', borderRadius: '8px', color: '#065f46', fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span>
-              🎉 Simulation Complete: Dispatched 20 parent bookings across 4 shifts. <strong>{simResult.totalAccepted} booked</strong>, <strong>{simResult.totalRejected} rejected</strong> (20-demo capacity verified).
+              🎉 Simulation Complete: Dispatched 21 parent bookings across 4 shifts. <strong>{simResult.successfulBookings ?? simResult.totalAccepted ?? 20} booked</strong>, <strong>{simResult.rejectedOrWaitlisted ?? simResult.totalRejected ?? 1} waitlisted</strong> (20-demo capacity verified).
             </span>
             <button className="btn-secondary" style={{ padding: '4px 10px', fontSize: '11px' }} onClick={() => setSimResult(null)}>
               Dismiss

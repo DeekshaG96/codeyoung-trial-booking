@@ -13,16 +13,23 @@ import {
 } from "firebase/auth";
 import { getAI, getGenerativeModel, GoogleAIBackend } from "firebase/ai";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+function requireFirebaseEnv(name) {
+  const value = import.meta.env[name];
+  if (!value) {
+    throw new Error(`Missing required Firebase environment variable: ${name}`);
+  }
+  return value;
+}
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional.
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyBOUFi1LCMGhYq1PAC4-5BguT7IQYxueu8",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "kodaverse-863ce.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "kodaverse-863ce",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "kodaverse-863ce.firebasestorage.app",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "564468245592",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:564468245592:web:97b131991265cb04cfd62d",
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-EKGZV27CFL"
+  apiKey: requireFirebaseEnv("VITE_FIREBASE_API_KEY"),
+  authDomain: requireFirebaseEnv("VITE_FIREBASE_AUTH_DOMAIN"),
+  projectId: requireFirebaseEnv("VITE_FIREBASE_PROJECT_ID"),
+  storageBucket: requireFirebaseEnv("VITE_FIREBASE_STORAGE_BUCKET"),
+  messagingSenderId: requireFirebaseEnv("VITE_FIREBASE_MESSAGING_SENDER_ID"),
+  appId: requireFirebaseEnv("VITE_FIREBASE_APP_ID"),
+  measurementId: requireFirebaseEnv("VITE_FIREBASE_MEASUREMENT_ID")
 };
 
 // Initialize Firebase

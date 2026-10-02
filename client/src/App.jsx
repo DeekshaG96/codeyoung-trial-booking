@@ -10,6 +10,7 @@ import QuickEvaluatorBar from './components/QuickEvaluatorBar';
 import TelemetryDashboard from './components/DeveloperSuite/TelemetryDashboard';
 import StripeCheckoutModal from './components/DeveloperSuite/StripeCheckoutModal';
 import AuthModal from './components/Auth/AuthModal';
+import StorageDashboard from './components/StorageDashboard/StorageDashboard';
 import { useAuth } from './services/authContext';
 import { api } from './services/api';
 import { Sparkles, Calendar, Clock, Globe, Shield, Award, CheckCircle, ShieldCheck } from 'lucide-react';
@@ -160,6 +161,8 @@ export default function App() {
             onOpenStripeCheckout={() => setIsStripeOpen(true)}
           />
         )}
+
+        {activeTab === 'storage' && <StorageDashboard />}
       </main>
 
       {/* Quick Evaluator Dock */}

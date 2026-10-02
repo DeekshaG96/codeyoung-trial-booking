@@ -10,6 +10,7 @@ import analyticsRoutes from './src/routes/analyticsRoutes.js';
 import authRoutes from './src/routes/authRoutes.js';
 import aiRoutes from './src/routes/aiRoutes.js';
 import codeRoutes from './src/routes/codeRoutes.js';
+import storageRoutes from './src/routes/storageRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -38,6 +39,7 @@ app.use('/api', analyticsRoutes);
 app.use('/api', authRoutes);
 app.use('/api', aiRoutes);
 app.use('/api', codeRoutes);
+app.use('/api', storageRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

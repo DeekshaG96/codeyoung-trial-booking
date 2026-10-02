@@ -11,6 +11,11 @@ class DataStore {
     this.bookings = [];
     this.waitlist = [];
     this.notificationLog = [];
+    this.storageItems = [
+      { id: 'folder-projects', name: 'Projects', type: 'folder', parentId: null, updatedAt: new Date().toISOString(), owner: 'Sarah Jenkins' },
+      { id: 'folder-resources', name: 'Learning resources', type: 'folder', parentId: null, updatedAt: new Date().toISOString(), owner: 'Sarah Jenkins' },
+      { id: 'file-roadmap', name: 'Codeyoung roadmap.pdf', type: 'pdf', size: 2457600, parentId: null, updatedAt: new Date().toISOString(), owner: 'Sarah Jenkins' }
+    ];
 
     // Pre-seed a few sample bookings for realistic initial demonstration
     this.seedInitialBookings();
@@ -157,6 +162,41 @@ class DataStore {
 
   getNotifications() {
     return this.notificationLog;
+  }
+
+  getStorageItems(parentId = null) {
+    return this.storageItems.filter(item => item.parentId === parentId);
+  }
+
+  addStorageItem(item) {
+    const created = { id: `${item.type}-${Date.now()}`, ...item, updatedAt: new Date().toISOString(), owner: 'You' };
+    this.storageItems.unshift(created);
+    return created;
+  }
+
+  renameStorageItem(id, name) {
+    const item = this.storageItems.find(entry => entry.id === id);
+    if (!item) return null;
+    item.name = name;
+    item.updatedAt = new Date().toISOString();
+    return item;
+  }
+
+  removeStorageItem(id) {
+    const ids = new Set([id]);
+    let changed = true;
+    while (changed) {
+      changed = false;
+      this.storageItems.forEach(item => {
+        if (ids.has(item.parentId) && !ids.has(item.id)) {
+          ids.add(item.id);
+          changed = true;
+        }
+      });
+    }
+    const previousLength = this.storageItems.length;
+    this.storageItems = this.storageItems.filter(item => !ids.has(item.id));
+    return this.storageItems.length !== previousLength;
   }
 }
 

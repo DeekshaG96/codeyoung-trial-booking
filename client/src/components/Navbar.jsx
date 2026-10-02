@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, BarChart3, UserCheck, Shield, LogIn, LogOut, ChevronDown, User as UserIcon } from 'lucide-react';
+import { Calendar, Users, Video, PlayCircle, Mail, RotateCcw, Sparkles, Compass, BarChart3, UserCheck, LogIn, LogOut, ChevronDown, HardDrive } from 'lucide-react';
 import { useAuth } from '../services/authContext';
 
 export default function Navbar({ 
@@ -108,6 +108,15 @@ export default function Navbar({
           >
             <BarChart3 size={14} />
             <span>Analytics & DST</span>
+          </button>
+
+          <button
+            id="nav-tab-storage"
+            className={`nav-tab-btn ${activeTab === 'storage' ? 'active' : ''}`}
+            onClick={() => setActiveTab('storage')}
+          >
+            <HardDrive size={14} />
+            <span>Cloud Drive</span>
           </button>
         </nav>
 

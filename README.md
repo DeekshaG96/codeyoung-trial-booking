@@ -23,6 +23,7 @@ An enterprise-grade, full-stack appointment scheduling platform engineered for *
 - [Environment Configuration](#environment-configuration)
 - [Setup & Local Execution](#setup--local-execution)
 - [Automated Testing Suite](#automated-testing-suite)
+- [Cloud Drive MVP](#cloud-drive-mvp)
 - [RESTful API Specification](#restful-api-specification)
 - [Deployment Architecture](#deployment-architecture)
 - [License](#license)
@@ -294,6 +295,20 @@ The application is validated by **28 automated tests across 5 test suites** usin
 
 ---
 
+## Cloud Drive MVP
+
+The portal includes a Google Drive-style **Cloud Drive** workspace in the main navigation. It supports responsive grid/list views, folder navigation and creation, search, multi-file upload, rename/delete actions, storage usage feedback, and loading/empty/error states. The client calls `/api/storage/*` when the Express API is available and falls back to `client/src/services/storageService.js`, which persists demo metadata in browser `localStorage`. This service boundary can later be replaced with PostgreSQL/S3 without changing the dashboard UI.
+
+Storage endpoints:
+
+- `GET /api/storage/items?parentId=<id>`
+- `POST /api/storage/folders`
+- `POST /api/storage/files`
+- `PATCH /api/storage/items/:id`
+- `DELETE /api/storage/items/:id`
+
+---
+
 ## RESTful API Specification
 
 ### Base URL: `/api`
@@ -307,6 +322,11 @@ The application is validated by **28 automated tests across 5 test suites** usin
 | `GET` | `/bookings` | None | `200 OK` | Lists all active confirmed bookings |
 | `GET` | `/bookings/:id` | None | `200 OK` / `404 Not Found` | Retrieves booking details by reference ID |
 | `GET` | `/bookings/:id/calendar.ics` | None | `200 OK` (`text/calendar`) | Exports standard RFC 5545 iCalendar file |
+| `GET` | `/storage/items` | `?parentId=<id>` | `200 OK` | Lists files and folders in a drive location |
+| `POST` | `/storage/folders` | `{"name", "parentId"}` | `201 Created` | Creates a folder |
+| `POST` | `/storage/files` | `{"name", "size", "type", "parentId"}` | `201 Created` | Creates file metadata for an uploaded client file |
+| `PATCH` | `/storage/items/:id` | `{"name"}` | `200 OK` | Renames a file or folder |
+| `DELETE` | `/storage/items/:id` | None | `200 OK` | Removes an item and nested children |
 | `POST` | `/bookings/waitlist` | `{"parentName", "parentEmail", "requestedSlot", "timezone"}` | `201 Created` | Registers parent into priority waitlist |
 | `GET` | `/mentors` | `?date=2026-10-15` | `200 OK` | Returns 10 mentors with daily quota meter (`booked / 2`) |
 | `GET` | `/mentors/:id/schedule` | `?date=2026-10-15` | `200 OK` | Day schedule for a specific mentor in IST |

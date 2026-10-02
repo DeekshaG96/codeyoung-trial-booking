@@ -14,6 +14,7 @@ import {
   runLocalSimulation,
   resetLocalData
 } from './localDataEngine';
+import { storageService } from './storageService';
 
 // Smart API Base: use relative /api when running locally, or Vercel production serverless API when deployed on Firebase / web
 const isLocalhost = typeof window !== 'undefined' && 
@@ -45,6 +46,35 @@ async function safeFetchJson(url, options = {}, fallbackFn = null) {
 }
 
 export const api = {
+  // Cloud storage API with localStorage fallback until a durable provider is configured
+  async getStorageItems(parentId = null) {
+    const params = parentId ? `?parentId=${encodeURIComponent(parentId)}` : '';
+    return safeFetchJson(`${API_BASE}/storage/items${params}`, {}, () => storageService.list(parentId));
+  },
+  async createStorageFolder(name, parentId = null) {
+    return safeFetchJson(`${API_BASE}/storage/folders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, parentId })
+    }, () => storageService.createFolder(name, parentId));
+  },
+  async uploadStorageFile(file, parentId = null) {
+    return safeFetchJson(`${API_BASE}/storage/files`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: file.name, size: file.size, type: file.type, parentId })
+    }, () => storageService.upload(file, parentId));
+  },
+  async renameStorageItem(id, name) {
+    return safeFetchJson(`${API_BASE}/storage/items/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    }, () => storageService.rename(id, name));
+  },
+  async deleteStorageItem(id) {
+    return safeFetchJson(`${API_BASE}/storage/items/${id}`, { method: 'DELETE' }, () => storageService.remove(id));
+  },
   // Available slots for a date & parent timezone
   async getAvailableSlots(timezone, date, subject = '') {
     const params = new URLSearchParams({ timezone, date });

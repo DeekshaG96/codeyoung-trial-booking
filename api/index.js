@@ -9,6 +9,7 @@ import analyticsRoutes from '../server/src/routes/analyticsRoutes.js';
 import authRoutes from '../server/src/routes/authRoutes.js';
 import aiRoutes from '../server/src/routes/aiRoutes.js';
 import codeRoutes from '../server/src/routes/codeRoutes.js';
+import storageRoutes from '../server/src/routes/storageRoutes.js';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api', analyticsRoutes);
 app.use('/api', authRoutes);
 app.use('/api', aiRoutes);
 app.use('/api', codeRoutes);
+app.use('/api', storageRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
